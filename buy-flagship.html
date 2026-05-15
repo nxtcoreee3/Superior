@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy SuperPhone 1 - Superior</title>
+    <style>
+        :root { --apple-blue: #0071e3; --text: #1d1d1f; --grey: #86868b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, sans-serif; }
+        body { background: white; color: var(--text); padding-bottom: 120px; }
+
+        .nav { height: 48px; background: white; border-bottom: 1px solid #d2d2d7; display: flex; align-items: center; justify-content: center; gap: 30px; position: sticky; top: 0; z-index: 1000; }
+        .nav a { text-decoration: none; color: var(--text); font-size: 12px; }
+
+        .container { max-width: 1100px; margin: 40px auto; display: flex; gap: 60px; padding: 0 20px; }
+        
+        /* Left Side: Sticky Image */
+        .preview { flex: 1.5; position: sticky; top: 80px; height: 70vh; display: flex; align-items: center; justify-content: center; }
+        .preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        /* Right Side: Options */
+        .controls { flex: 1; }
+        h1 { font-size: 48px; margin-bottom: 10px; }
+        h3 { margin: 30px 0 15px; font-size: 20px; }
+
+        .grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .card { border: 2px solid #d2d2d7; border-radius: 12px; padding: 20px; cursor: pointer; transition: 0.2s; position: relative; }
+        .card:hover { border-color: #86868b; }
+        .card.active { border-color: var(--apple-blue); background: #f0f7ff; }
+        
+        .color-circle { width: 20px; height: 20px; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 10px; }
+
+        .checkout-bar { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); backdrop-filter: blur(15px); border-top: 1px solid #d2d2d7; padding: 20px; display: flex; justify-content: center; align-items: center; gap: 50px; z-index: 2000; }
+        .btn-buy { background: var(--apple-blue); color: white; border: none; padding: 12px 40px; border-radius: 20px; font-size: 16px; cursor: pointer; }
+        .disclaimer { color: red; font-size: 10px; position: absolute; top: 5px; width: 100%; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="disclaimer">FICTIONAL PRODUCT - NO MONEY WILL BE TAKEN</div>
+    <nav class="nav">
+        <a href="index.html">Superior</a>
+        <a href="#">SuperPhone 1</a>
+    </nav>
+
+    <div class="container">
+        <div class="preview">
+            <img id="display-img" src="assets/SuperPhone 1 Black.png">
+        </div>
+
+        <div class="controls">
+            <h1>Buy SuperPhone 1</h1>
+            
+            <h3>Finish.</h3>
+            <div class="grid">
+                <div class="card active" onclick="selColor(this, 'Black', 'assets/SuperPhone 1 Black.png')">
+                    <span class="color-circle" style="background:#1d1d1f"></span> Black
+                </div>
+                <div class="card" onclick="selColor(this, 'White', 'assets/SuperPhone 1 White.png')">
+                    <span class="color-circle" style="background:#f5f5f7; border: 1px solid #ccc"></span> White
+                </div>
+                <div class="card" onclick="selColor(this, 'Jet Blue', 'assets/SuperPhone 1 Jet Blue.png')">
+                    <span class="color-circle" style="background:#2b4562"></span> Jet Blue
+                </div>
+            </div>
+
+            <h3>Storage.</h3>
+            <div class="grid">
+                <div class="card active" onclick="selStore(this, 0, '256GB')">256GB</div>
+                <div class="card" onclick="selStore(this, 100, '512GB')">512GB (+$100)</div>
+                <div class="card" onclick="selStore(this, 300, '1TB')">1TB (+$300)</div>
+            </div>
+
+            <h3>SuperCare+</h3>
+            <div class="grid">
+                <div class="card" id="care-btn" onclick="toggleCare()">
+                    <b>Add SuperCare+</b><br><small>2 years of protection</small>
+                    <span style="float:right">+$199</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="checkout-bar">
+        <div>
+            <p id="summary">SuperPhone 1 Black, 256GB</p>
+            <h2 id="price">$999</h2>
+        </div>
+        <button class="btn-buy" onclick="complete()">Buy</button>
+    </div>
+
+    <script>
+        let color = "Black";
+        let storage = "256GB";
+        let sPrice = 0;
+        let cPrice = 0;
+
+        function selColor(el, name, img) {
+            color = name;
+            document.getElementById('display-img').src = img;
+            document.querySelectorAll('.controls .grid:nth-of-type(1) .card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            update();
+        }
+
+        function selStore(el, p, s) {
+            sPrice = p; storage = s;
+            document.querySelectorAll('.controls .grid:nth-of-type(2) .card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            update();
+        }
+
+        function toggleCare() {
+            const btn = document.getElementById('care-btn');
+            if(cPrice === 0) { cPrice = 199; btn.classList.add('active'); }
+            else { cPrice = 0; btn.classList.remove('active'); }
+            update();
+        }
+
+        function update() {
+            document.getElementById('price').innerText = `$${999 + sPrice + cPrice}`;
+            document.getElementById('summary').innerText = `SuperPhone 1 ${color}, ${storage}${cPrice > 0 ? ' + SuperCare+' : ''}`;
+        }
+
+        function complete() {
+            alert("Order Simulated! No money was taken. Thanks for checking out Superior!");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
