@@ -3,250 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Superior | The Future of Mobile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Superior | SuperPhone 1</title>
     <style>
         :root {
-            --apple-black: #1d1d1f;
-            --apple-grey: #f5f5f7;
+            --bg-white: #ffffff;
             --apple-blue: #0071e3;
-            --text-main: #1d1d1f;
-            --text-secondary: #86868b;
+            --text-dark: #1d1d1f;
+            --text-grey: #86868b;
+            --border-color: #d2d2d7;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "SF Pro Display", "Helvetica Neue", Arial, sans-serif; }
+        body { background: var(--bg-white); color: var(--text-dark); overflow-x: hidden; }
 
-        body {
-            background-color: #fff;
-            color: var(--text-main);
-            overflow-x: hidden;
-        }
+        /* Animation for Intro */
+        .fade-in { animation: fadeIn 1.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Disclaimer Bar */
-        .disclaimer {
-            background: #fbfbfd;
-            text-align: center;
-            padding: 10px;
-            font-size: 12px;
-            border-bottom: 1px solid #d2d2d7;
-            color: #d0021b;
-            font-weight: 600;
-        }
-
-        /* Nav Bar */
+        /* Navbar */
         nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            height: 48px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            gap: 40px;
+            height: 48px; background: rgba(255,255,255,0.8); backdrop-filter: blur(20px);
+            position: sticky; top: 0; display: flex; justify-content: center; align-items: center; gap: 30px;
+            border-bottom: 1px solid var(--border-color); z-index: 100;
+        }
+        nav a { text-decoration: none; color: var(--text-dark); font-size: 12px; opacity: 0.8; }
+
+        /* Intro Section */
+        .intro {
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; background: #f5f5f7;
+        }
+        .intro h1 { font-size: 80px; font-weight: 600; letter-spacing: -2px; }
+        .intro p { font-size: 24px; color: var(--text-grey); }
+
+        /* Configurator Section */
+        .config-container {
+            display: flex; max-width: 1200px; margin: 50px auto; padding: 20px; gap: 50px;
+        }
+        .phone-preview { flex: 1; position: sticky; top: 100px; height: 600px; text-align: center; }
+        .phone-preview img { max-height: 100%; transition: opacity 0.3s ease; }
+
+        .options-panel { flex: 1; }
+        .option-group { margin-bottom: 40px; }
+        .option-group h3 { font-size: 24px; margin-bottom: 15px; }
+        
+        .grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .choice-card {
+            border: 2px solid var(--border-color); padding: 20px; border-radius: 12px;
+            cursor: pointer; transition: all 0.2s; text-align: left;
+        }
+        .choice-card:hover { border-color: #86868b; }
+        .choice-card.selected { border-color: var(--apple-blue); background: rgba(0, 113, 227, 0.05); }
+
+        .color-dot { width: 20px; height: 20px; border-radius: 50%; display: inline-block; margin-right: 10px; }
+
+        /* Checkout Bar */
+        .footer-bar {
+            position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px); padding: 20px; border-top: 1px solid var(--border-color);
+            display: flex; justify-content: space-around; align-items: center;
         }
 
-        nav a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 12px;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
+        .disclaimer { font-size: 10px; color: red; text-align: center; margin-bottom: 5px; }
 
-        nav a:hover { opacity: 1; }
-
-        /* Hero Section */
-        .hero {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: #000;
+        /* Modal */
+        #modal {
+            display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center;
             color: white;
-            padding: 20px;
         }
-
-        .hero h1 { font-size: 56px; font-weight: 600; }
-        .hero p { font-size: 24px; margin-top: 10px; }
-        .hero img { max-width: 800px; width: 100%; margin-top: 40px; }
-
-        /* Product Grid */
-        .product-section {
-            padding: 100px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .card {
-            background: var(--apple-grey);
-            border-radius: 30px;
-            padding: 60px 40px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover { transform: scale(1.02); }
-
-        .card h2 { font-size: 40px; }
-        .card .specs { color: var(--text-secondary); margin: 20px 0; font-size: 18px; }
-        .price { font-size: 20px; font-weight: 600; display: block; margin-bottom: 20px;}
-
-        .btn {
-            background: var(--apple-blue);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 980px;
-            text-decoration: none;
-            font-weight: 400;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* Cart/Modal */
-        #cart-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-        }
-
-        .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--apple-blue);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <div class="disclaimer">
-        FICTIONAL PRODUCT: No money will be taken. No items will ship. For demonstration only.
-    </div>
-
     <nav>
-        <a href="#"><b>Superior</b></a>
-        <a href="#flagship">Flagship</a>
-        <a href="#budget">Budget</a>
-        <a href="#superos">SuperOS</a>
-        <a href="#" onclick="openCart()"><i class="fa-solid fa-bag-shopping"></i></a>
+        <img src="assets/Superior.png" height="20">
+        <a href="#intro">Overview</a>
+        <a href="#config">Tech Specs</a>
+        <a href="#config">Compare</a>
     </nav>
 
-    <section class="hero">
-        <h1>Superior Flagship.</h1>
-        <p>Pro. Beyond. Titan.</p>
-        <img src="assets/flagship-hero.png" alt="Superior Flagship">
+    <section class="intro" id="intro">
+        <h1 class="fade-in">SuperPhone 1.</h1>
+        <p class="fade-in">Titanium. AI-Powered. Superior.</p>
     </section>
 
-    <div class="product-section">
-        <div class="grid">
-            <div class="card" id="flagship">
-                <h2>Flagship</h2>
-                <p class="specs">Snapdragon 8 Gen 4 Elite • Titanium • 50MP 1" Sensor</p>
-                <span class="price">From $999*</span>
-                <button class="btn" onclick="addToCart('Superior Flagship', 999)">Buy Now</button>
-                <img src="assets/flagship-jetblue.png" style="width:100%; margin-top:30px;">
+    <section class="config-container" id="config">
+        <div class="phone-preview">
+            <img id="main-image" src="assets/SuperPhone 1 Black.png" alt="SuperPhone 1">
+        </div>
+
+        <div class="options-panel">
+            <div class="option-group">
+                <h3>Finish. <span style="color: var(--text-grey);">Pick your favorite.</span></h3>
+                <div class="grid-options">
+                    <div class="choice-card selected" onclick="updateColor('Black', 'assets/SuperPhone 1 Black.png')">
+                        <span class="color-dot" style="background: #1c1c1c;"></span> Black
+                    </div>
+                    <div class="choice-card" onclick="updateColor('White', 'assets/SuperPhone 1 White.png')">
+                        <span class="color-dot" style="background: #f2f2f2; border: 1px solid #ccc;"></span> White
+                    </div>
+                    <div class="choice-card" onclick="updateColor('Jet Blue', 'assets/SuperPhone 1 Jet Blue.png')">
+                        <span class="color-dot" style="background: #2b4562;"></span> Jet Blue
+                    </div>
+                </div>
             </div>
 
-            <div class="card" id="budget">
-                <h2>Budget</h2>
-                <p class="specs">Snapdragon 7 Gen 3 • 6.5” AMOLED • 50MP Main</p>
-                <span class="price">From $499*</span>
-                <button class="btn" onclick="addToCart('Superior Budget', 499)">Buy Now</button>
-                <img src="assets/budget-ocean.png" style="width:100%; margin-top:30px;">
+            <div class="option-group">
+                <h3>Storage. <span style="color: var(--text-grey);">How much space?</span></h3>
+                <div class="grid-options">
+                    <div class="choice-card selected" onclick="updateStorage(0, '256GB')">256GB<sup>1</sup></div>
+                    <div class="choice-card" onclick="updateStorage(100, '512GB')">512GB<sup>1</sup> (+$100)</div>
+                    <div class="choice-card" onclick="updateStorage(300, '1TB')">1TB<sup>1</sup> (+$300)</div>
+                </div>
             </div>
+
+            <div class="option-group">
+                <h3>SuperCare+ <span style="color: var(--text-grey);">Protect your phone.</span></h3>
+                <div class="choice-card" id="care-card" onclick="toggleCare()">
+                    <strong>Add SuperCare+</strong>
+                    <p style="font-size: 14px; margin-top: 5px;">Coverage for accidental damage and 24/7 priority support.</p>
+                    <p>+$199</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-bar">
+        <div>
+            <p class="disclaimer">FICTIONAL: NO PRODUCT SHIPS / NO MONEY TAKEN</p>
+            <p><b id="summary-text">SuperPhone 1 Black, 256GB</b></p>
+            <h2 id="total-price">$999</h2>
+        </div>
+        <button onclick="checkout()" style="background: var(--apple-blue); color:white; padding:15px 40px; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Buy</button>
+    </div>
+
+    <div id="modal">
+        <div style="text-align: center;">
+            <img src="assets/superos4.png" width="100">
+            <h1>Processing Order...</h1>
+            <p>Wait while we encrypt your fictional transaction.</p>
         </div>
     </div>
 
-    <div id="cart-modal">
-        <div class="modal-content" id="modal-body">
-            </div>
-    </div>
-
     <script>
-        let cart = [];
+        let basePrice = 999;
+        let storagePrice = 0;
+        let carePrice = 0;
+        let currentColor = "Black";
+        let currentStorage = "256GB";
 
-        function addToCart(name, price) {
-            cart.push({name, price});
-            showCheckout();
-        }
-
-        function showCheckout() {
-            const modal = document.getElementById('cart-modal');
-            const body = document.getElementById('modal-body');
-            modal.style.display = 'flex';
+        function updateColor(color, imgSrc) {
+            currentColor = color;
+            document.getElementById('main-image').src = imgSrc;
             
-            body.innerHTML = `
-                <h2>Checkout</h2>
-                <p style="margin: 20px 0;">Item: <b>${cart[0].name}</b></p>
-                <p>Total: $${cart[0].price}</p>
-                <hr style="margin: 20px 0; opacity: 0.2;">
-                <p style="font-size: 12px; color: red;">Reminder: This is a simulation. No real payment is required.</p>
-                <button class="btn" style="margin-top: 20px; width: 100%;" onclick="processPayment()">Pay with SuperPay</button>
-                <button onclick="closeModal()" style="margin-top: 15px; background: none; border: none; cursor: pointer; color: var(--apple-blue);">Cancel</button>
-            `;
+            // UI Visual Selection
+            document.querySelectorAll('.option-group:first-of-type .choice-card').forEach(card => {
+                card.classList.remove('selected');
+                if(card.innerText.includes(color)) card.classList.add('selected');
+            });
+            updateSummary();
         }
 
-        function processPayment() {
-            const body = document.getElementById('modal-body');
-            body.innerHTML = `
-                <h2>Processing...</h2>
-                <div class="loading-spinner"></div>
-                <p>Contacting Secure Servers</p>
-            `;
-
-            setTimeout(() => {
-                body.innerHTML = `
-                    <i class="fa-solid fa-circle-check" style="font-size: 60px; color: #28a745; margin-bottom: 20px;"></i>
-                    <h2>Order Confirmed</h2>
-                    <p style="margin: 20px 0;">Your fictional order is on its way!</p>
-                    <p style="font-size: 14px; color: var(--text-secondary);">Confirmation: #SUP-${Math.floor(Math.random()*1000000)}</p>
-                    <button class="btn" style="margin-top: 20px;" onclick="closeModal()">Back to Store</button>
-                `;
-                cart = [];
-            }, 2500);
+        function updateStorage(price, size) {
+            storagePrice = price;
+            currentStorage = size;
+            
+            document.querySelectorAll('.option-group:nth-of-type(2) .choice-card').forEach(card => {
+                card.classList.remove('selected');
+                if(card.innerText.includes(size)) card.classList.add('selected');
+            });
+            updateSummary();
         }
 
-        function closeModal() {
-            document.getElementById('cart-modal').style.display = 'none';
+        function toggleCare() {
+            const card = document.getElementById('care-card');
+            if(carePrice === 0) {
+                carePrice = 199;
+                card.classList.add('selected');
+            } else {
+                carePrice = 0;
+                card.classList.remove('selected');
+            }
+            updateSummary();
         }
 
-        function openCart() {
-            if(cart.length === 0) alert("Your bag is empty.");
-            else showCheckout();
+        function updateSummary() {
+            const total = basePrice + storagePrice + carePrice;
+            document.getElementById('total-price').innerText = `$${total}`;
+            document.getElementById('summary-text').innerText = `SuperPhone 1 ${currentColor}, ${currentStorage} ${carePrice > 0 ? '+ SuperCare' : ''}`;
         }
-    </script>
-</body>
-</html>
+
+        function checkout() {
+            document.getElementById('modal').style.display
