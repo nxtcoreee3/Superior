@@ -2,126 +2,289 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy SuperPhone 1 - Superior</title>
-    <style>
-        :root { --apple-blue: #0071e3; --text: #1d1d1f; --grey: #86868b; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, sans-serif; }
-        body { background: white; color: var(--text); padding-bottom: 120px; }
-
-        .nav { height: 48px; background: white; border-bottom: 1px solid #d2d2d7; display: flex; align-items: center; justify-content: center; gap: 30px; position: sticky; top: 0; z-index: 1000; }
-        .nav a { text-decoration: none; color: var(--text); font-size: 12px; }
-
-        .container { max-width: 1100px; margin: 40px auto; display: flex; gap: 60px; padding: 0 20px; }
-        
-        /* Left Side: Sticky Image */
-        .preview { flex: 1.5; position: sticky; top: 80px; height: 70vh; display: flex; align-items: center; justify-content: center; }
-        .preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
-
-        /* Right Side: Options */
-        .controls { flex: 1; }
-        h1 { font-size: 48px; margin-bottom: 10px; }
-        h3 { margin: 30px 0 15px; font-size: 20px; }
-
-        .grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-        .card { border: 2px solid #d2d2d7; border-radius: 12px; padding: 20px; cursor: pointer; transition: 0.2s; position: relative; }
-        .card:hover { border-color: #86868b; }
-        .card.active { border-color: var(--apple-blue); background: #f0f7ff; }
-        
-        .color-circle { width: 20px; height: 20px; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 10px; }
-
-        .checkout-bar { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); backdrop-filter: blur(15px); border-top: 1px solid #d2d2d7; padding: 20px; display: flex; justify-content: center; align-items: center; gap: 50px; z-index: 2000; }
-        .btn-buy { background: var(--apple-blue); color: white; border: none; padding: 12px 40px; border-radius: 20px; font-size: 16px; cursor: pointer; }
-        .disclaimer { color: red; font-size: 10px; position: absolute; top: 5px; width: 100%; text-align: center; }
-    </style>
+    <meta name="description" content="Configure and purchase your SuperPhone 1. Choose from premium Titanium colors, high storage capacities, and add SuperCare+ protection.">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div class="disclaimer">FICTIONAL PRODUCT - NO MONEY WILL BE TAKEN</div>
-    <nav class="nav">
-        <a href="index.html">Superior</a>
-        <a href="#">SuperPhone 1</a>
-    </nav>
+<body class="light-theme">
 
-    <div class="container">
-        <div class="preview">
-            <img id="display-img" src="assets/SuperPhone 1 Black.png">
-        </div>
+    <!-- Sticky Navigation -->
+    <header class="nav-container">
+        <nav class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.886L4 9l4.912 1.914L10 18l2-6 6-2-6-1.914Z"/></svg>
+                Superior
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Overview</a></li>
+                <li><a href="index.html#simulators">Specs</a></li>
+                <li><a href="index.html#compare">Compare</a></li>
+            </ul>
+            <a href="buy-flagship.html" class="nav-buy-btn">Buy Flagship</a>
+        </nav>
+    </header>
 
-        <div class="controls">
-            <h1>Buy SuperPhone 1</h1>
+    <!-- Fictional Store Disclaimer -->
+    <div style="background: #fff3cd; color: #856404; text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 500; border-bottom: 1px solid #ffeeba; margin-top: 48px;">
+        ⚠️ FICTIONAL DEMO STORE: No actual payment will be processed. No real products will be shipped.
+    </div>
+
+    <!-- Buy Configuration Main Content -->
+    <main class="buy-container">
+        
+        <!-- Left: Sticky Gallery -->
+        <section class="buy-gallery-sticky">
+            <div class="buy-gallery-image-wrapper">
+                <img id="product-gallery-img" class="buy-gallery-image" src="assets/SuperPhone 1 Black.png" alt="SuperPhone 1 Black Back View">
+            </div>
             
-            <h3>Finish.</h3>
-            <div class="grid">
-                <div class="card active" onclick="selColor(this, 'Black', 'assets/SuperPhone 1 Black.png')">
-                    <span class="color-circle" style="background:#1d1d1f"></span> Black
-                </div>
-                <div class="card" onclick="selColor(this, 'White', 'assets/SuperPhone 1 White.png')">
-                    <span class="color-circle" style="background:#f5f5f7; border: 1px solid #ccc"></span> White
-                </div>
-                <div class="card" onclick="selColor(this, 'Jet Blue', 'assets/SuperPhone 1 Jet Blue.png')">
-                    <span class="color-circle" style="background:#2b4562"></span> Jet Blue
+            <div class="buy-gallery-controls">
+                <button class="gallery-toggle-btn active" id="btn-view-back" onclick="changeView('back')">Back View</button>
+                <button class="gallery-toggle-btn" id="btn-view-front" onclick="changeView('front')">Front View</button>
+            </div>
+        </section>
+
+        <!-- Right: Configurator controls -->
+        <section class="buy-config-panel">
+            <div class="buy-header">
+                <span class="buy-badge-new">Flagship</span>
+                <h1>Buy SuperPhone 1</h1>
+                <p>Grade 5 Titanium frame. Advanced Periscope zoom. The absolute best.</p>
+            </div>
+
+            <!-- Finish Selection -->
+            <div>
+                <h3 class="config-section-title">
+                    <span>Finish.</span>
+                    <span class="config-title-aside" id="selected-color-label">Space Black</span>
+                </h3>
+                <div class="config-options-grid">
+                    <div class="config-card active" onclick="selectColor(this, 'Black', 'Space Black')">
+                        <div class="config-card-left">
+                            <span class="config-color-dot" style="background: #1c1c1e;"></span>
+                            <div>
+                                <div class="config-card-title">Space Black</div>
+                                <div class="config-card-desc">Titanium coating</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="config-card" onclick="selectColor(this, 'White', 'Ceramic White')">
+                        <div class="config-card-left">
+                            <span class="config-color-dot" style="background: #e3e3e3;"></span>
+                            <div>
+                                <div class="config-card-title">Ceramic White</div>
+                                <div class="config-card-desc">Satin micro-sandblast</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="config-card" onclick="selectColor(this, 'Jet Blue', 'Jet Blue')">
+                        <div class="config-card-left">
+                            <span class="config-color-dot" style="background: #2b4562;"></span>
+                            <div>
+                                <div class="config-card-title">Jet Blue</div>
+                                <div class="config-card-desc">Deep anodized marine finish</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <h3>Storage.</h3>
-            <div class="grid">
-                <div class="card active" onclick="selStore(this, 0, '256GB')">256GB</div>
-                <div class="card" onclick="selStore(this, 100, '512GB')">512GB (+$100)</div>
-                <div class="card" onclick="selStore(this, 300, '1TB')">1TB (+$300)</div>
+            <!-- Storage Selection -->
+            <div>
+                <h3 class="config-section-title">
+                    <span>Storage.</span>
+                    <span class="config-title-aside" id="selected-storage-label">256 GB</span>
+                </h3>
+                <div class="config-options-grid">
+                    <div class="config-card active" onclick="selectStorage(this, '256GB', 0)">
+                        <div>
+                            <div class="config-card-title">256 GB</div>
+                            <div class="config-card-desc">Ideal for high-res photo/video</div>
+                        </div>
+                        <div class="config-card-price">Included</div>
+                    </div>
+                    <div class="config-card" onclick="selectStorage(this, '512GB', 100)">
+                        <div>
+                            <div class="config-card-title">512 GB</div>
+                            <div class="config-card-desc">For heavy power users</div>
+                        </div>
+                        <div class="config-card-price">+$100</div>
+                    </div>
+                    <div class="config-card" onclick="selectStorage(this, '1TB', 300)">
+                        <div>
+                            <div class="config-card-title">1 TB</div>
+                            <div class="config-card-desc">Uncapped files, offline 8K video</div>
+                        </div>
+                        <div class="config-card-price">+$300</div>
+                    </div>
+                </div>
             </div>
 
-            <h3>SuperCare+</h3>
-            <div class="grid">
-                <div class="card" id="care-btn" onclick="toggleCare()">
-                    <b>Add SuperCare+</b><br><small>2 years of protection</small>
-                    <span style="float:right">+$199</span>
+            <!-- SuperCare+ Selection -->
+            <div>
+                <h3 class="config-section-title">
+                    <span>SuperCare+ Coverage.</span>
+                    <span class="config-title-aside" id="care-status-label">No Coverage</span>
+                </h3>
+                <div class="config-options-grid">
+                    <div class="config-card" id="care-card" onclick="toggleCare(199)">
+                        <div class="config-card-left">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--apple-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <div>
+                                <div class="config-card-title">Add SuperCare+</div>
+                                <div class="config-card-desc">2 years accidental damage protection</div>
+                            </div>
+                        </div>
+                        <div class="config-card-price">+$199</div>
+                    </div>
                 </div>
+            </div>
+            
+            <!-- Quick Spec Highlights -->
+            <div style="background: var(--bg-light-card); border-radius: 12px; padding: 20px; font-size: 13px; line-height: 1.5;">
+                <h4 style="margin-bottom: 8px; font-weight: 600;">What's in the Box:</h4>
+                <p>• SuperPhone 1 running SuperOS 4</p>
+                <p>• Braided USB-C to USB-C cable (1.5m)</p>
+                <p>• Titanium Sim-ejector pin & documentation</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Checkout bar -->
+    <div class="buy-checkout-bar">
+        <div class="buy-checkout-content">
+            <div>
+                <div class="buy-summary-text" id="checkout-summary-line">SuperPhone 1 Space Black, 256GB</div>
+                <div class="buy-summary-model">SuperPhone 1</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 30px;">
+                <div class="buy-summary-price" id="checkout-price-display">$999</div>
+                <button class="btn-checkout-confirm" onclick="triggerCheckoutModal()">Add to Bag</button>
             </div>
         </div>
     </div>
 
-    <div class="checkout-bar">
-        <div>
-            <p id="summary">SuperPhone 1 Black, 256GB</p>
-            <h2 id="price">$999</h2>
-        </div>
-        <button class="btn-buy" onclick="complete()">Buy</button>
-    </div>
-
+    <!-- Scripting -->
     <script>
-        let color = "Black";
-        let storage = "256GB";
-        let sPrice = 0;
-        let cPrice = 0;
+        // State variables
+        let colorKey = "Black"; // Black, White, Jet Blue
+        let colorLabel = "Space Black";
+        let storageSize = "256GB";
+        let viewSide = "back"; // back, front
+        let storageExtraPrice = 0;
+        let carePrice = 0;
+        const basePrice = 999;
 
-        function selColor(el, name, img) {
-            color = name;
-            document.getElementById('display-img').src = img;
-            document.querySelectorAll('.controls .grid:nth-of-type(1) .card').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            update();
+        // Image mapping
+        const images = {
+            "Black": {
+                "back": "assets/SuperPhone 1 Black.png",
+                "front": "assets/SuperPhone 1 Black Front.png"
+            },
+            "White": {
+                "back": "assets/SuperPhone 1 White.png",
+                "front": "assets/SuperPhone 1 White Front.png"
+            },
+            "Jet Blue": {
+                "back": "assets/SuperPhone 1 Jet Blue.png",
+                "front": "assets/SuperPhone 1 Jet Blue Front.png"
+            }
+        };
+
+        function selectColor(element, color, label) {
+            // Update active states
+            const cards = element.parentElement.querySelectorAll('.config-card');
+            cards.forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+
+            colorKey = color;
+            colorLabel = label;
+            document.getElementById('selected-color-label').innerText = label;
+
+            updateImageDisplay();
+            updateCheckoutInfo();
         }
 
-        function selStore(el, p, s) {
-            sPrice = p; storage = s;
-            document.querySelectorAll('.controls .grid:nth-of-type(2) .card').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            update();
+        function selectStorage(element, size, extraPrice) {
+            const cards = element.parentElement.querySelectorAll('.config-card');
+            cards.forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+
+            storageSize = size;
+            storageExtraPrice = extraPrice;
+            document.getElementById('selected-storage-label').innerText = size.replace("GB", " GB").replace("TB", " TB");
+
+            updateCheckoutInfo();
         }
 
-        function toggleCare() {
-            const btn = document.getElementById('care-btn');
-            if(cPrice === 0) { cPrice = 199; btn.classList.add('active'); }
-            else { cPrice = 0; btn.classList.remove('active'); }
-            update();
+        function toggleCare(price) {
+            const card = document.getElementById('care-card');
+            const label = document.getElementById('care-status-label');
+
+            if(carePrice === 0) {
+                carePrice = price;
+                card.classList.add('active');
+                label.innerText = "SuperCare+ Added";
+            } else {
+                carePrice = 0;
+                card.classList.remove('active');
+                label.innerText = "No Coverage";
+            }
+
+            updateCheckoutInfo();
         }
 
-        function update() {
-            document.getElementById('price').innerText = `$${999 + sPrice + cPrice}`;
-            document.getElementById('summary').innerText = `SuperPhone 1 ${color}, ${storage}${cPrice > 0 ? ' + SuperCare+' : ''}`;
+        function changeView(side) {
+            viewSide = side;
+            
+            document.getElementById('btn-view-back').classList.remove('active');
+            document.getElementById('btn-view-front').classList.remove('active');
+            
+            if(side === 'back') {
+                document.getElementById('btn-view-back').classList.add('active');
+            } else {
+                document.getElementById('btn-view-front').classList.add('active');
+            }
+
+            updateImageDisplay();
         }
 
-        function complete() {
-            alert("Order Simulated! No money was taken. Thanks for checking out Superior!");
+        function updateImageDisplay() {
+            const imgEl = document.getElementById('product-gallery-img');
+            // Fade out
+            imgEl.style.opacity = 0;
+            imgEl.style.transform = "scale(0.95)";
+            
+            setTimeout(() => {
+                imgEl.src = images[colorKey][viewSide];
+                imgEl.alt = `SuperPhone 1 ${colorLabel} ${viewSide === 'back' ? 'Back' : 'Front'} View`;
+                // Fade in
+                imgEl.style.opacity = 1;
+                imgEl.style.transform = "scale(1)";
+            }, 180);
+        }
+
+        function updateCheckoutInfo() {
+            const totalPrice = basePrice + storageExtraPrice + carePrice;
+            document.getElementById('checkout-price-display').innerText = `$${totalPrice}`;
+            
+            let summary = `SuperPhone 1 ${colorLabel}, ${storageSize}`;
+            if(carePrice > 0) {
+                summary += " + SuperCare+";
+            }
+            document.getElementById('checkout-summary-line').innerText = summary;
+        }
+
+        function triggerCheckoutModal() {
+            const totalPrice = basePrice + storageExtraPrice + carePrice;
+            let summary = `SuperPhone 1 ${colorLabel}, ${storageSize}`;
+            if(carePrice > 0) {
+                summary += " with SuperCare+ Protection";
+            }
+            
+            alert(`🎉 Simulated Order Successful!\n\nConfigured Item: ${summary}\nTotal Price: $${totalPrice}\n\nThank you for checking out the Superior demo experience!`);
             window.location.href = "index.html";
         }
     </script>
