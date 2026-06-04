@@ -18,7 +18,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Overview</a></li>
-                <li><a href="#simulators">Specs</a></li>
+                <li><a href="#spec-showcase">Specs</a></li>
                 <li><a href="#compare">Compare</a></li>
             </ul>
             <a href="buy-flagship.html" class="nav-buy-btn">Buy Flagship</a>
@@ -37,7 +37,7 @@
         
         <div class="hero-devices">
             <div class="hero-phone flagship">
-                <img src="assets/SuperPhone 1 Black.png" alt="SuperPhone 1 Flagship Black">
+                <img src="assets/Hero.png" alt="SuperPhone 1 Flagship White">
             </div>
             <div class="hero-phone budget">
                 <img src="assets/SuperPhone 1a Navy Blue.png" alt="SuperPhone 1a Budget Navy Blue">
@@ -113,220 +113,7 @@
             </div>
         </section>
 
-        <!-- Simulators Section Header -->
-        <section class="section reveal-on-scroll" id="simulators">
-            <div class="section-header">
-                <span class="section-tag">Interactive Demos</span>
-                <h2 class="section-title">See specs in action.</h2>
-                <p class="section-desc">Experience displays, performance, and camera capabilities using our live vector hardware simulators.</p>
-            </div>
-        </section>
 
-        <!-- Display brightness and refresh simulator -->
-        <section class="section reveal-on-scroll">
-            <h3 style="font-size: 28px; text-align: center; margin-bottom: 20px;">Display Simulator</h3>
-            <p style="color: var(--text-dark-secondary); text-align: center; max-width: 600px; margin: 0 auto 30px;">
-                Toggle refresh rates and slide the brightness slider to witness how the LTPO panel adjusts to power saving (1Hz) versus gaming speed (144Hz) and reaches a blinding peak brightness of 3,000 nits.
-            </p>
-
-            <div class="display-sim-container">
-                <div class="sim-glow-ring" id="sim-glow-ring"></div>
-                
-                <div class="sim-controls-panel">
-                    <div class="sim-control-group">
-                        <label for="brightness-slider">Brightness: <span id="brightness-val">1000</span> nits</label>
-                        <input type="range" id="brightness-slider" class="apple-slider" min="100" max="3000" value="1000" oninput="updateBrightness(this.value)">
-                    </div>
-                    
-                    <div class="sim-control-group">
-                        <label>Refresh Rate: <span id="refresh-val">144</span>Hz</label>
-                        <div class="refresh-toggle-container">
-                            <button class="refresh-opt" id="ref-1" onclick="updateRefresh(1)">1Hz</button>
-                            <button class="refresh-opt" id="ref-60" onclick="updateRefresh(60)">60Hz</button>
-                            <button class="refresh-opt" id="ref-120" onclick="updateRefresh(120)">120Hz</button>
-                            <button class="refresh-opt active" id="ref-144" onclick="updateRefresh(144)">144Hz</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Phone mockup frame -->
-                <div class="phone-mockup-frame">
-                    <div class="phone-island"></div>
-                    <div class="phone-screen-content" style="background-image: url('assets/superos4.png');">
-                        <div class="screen-brightness-overlay" id="screen-overlay"></div>
-                        <div class="refresh-anim-dot" id="refresh-dot"></div>
-                        
-                        <div class="phone-screen-text">
-                            <h4 id="screen-phone-title">SuperPhone 1</h4>
-                            <p id="screen-phone-desc">LTPO AMOLED Active</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Camera Zoom Simulator -->
-        <section class="section reveal-on-scroll">
-            <h3 style="font-size: 28px; text-align: center; margin-bottom: 20px;">120x Periscope Zoom Simulator</h3>
-            <p style="color: var(--text-dark-secondary); text-align: center; max-width: 600px; margin: 0 auto 30px;">
-                Drag the zoom slider or click the presets to shift between the 0.5x Ultrawide, the 1x Main, the 3x Telephoto, the 6x Periscope, and a digital crop going up to a massive 120x max magnification.
-            </p>
-
-            <div class="camera-sim-container">
-                <div class="zoom-hud">
-                    <div class="zoom-hud-item">Active Sensor</div>
-                    <div class="zoom-hud-value" id="zoom-sensor-name">Main Camera</div>
-                    <div class="zoom-hud-item" style="margin-top: 6px;">Details</div>
-                    <div class="zoom-hud-value" id="zoom-sensor-specs" style="font-size: 13px; font-weight: 400; color: #d2d2d7;">50MP, 1-inch, f/1.6</div>
-                </div>
-
-                <div class="camera-sim-viewport">
-                    <!-- Zoom Scene: Crisp Vector Graphic (SVG) -->
-                    <div class="camera-zoom-scene" id="camera-scene">
-                        <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Sky background -->
-                            <rect width="800" height="450" fill="url(#skyGradient)" />
-                            
-                            <!-- Sun / Glare -->
-                            <circle cx="680" cy="100" r="60" fill="url(#sunGradient)" opacity="0.9"/>
-                            
-                            <!-- Distant mountains -->
-                            <polygon points="50,450 300,180 550,450" fill="#2d3748" opacity="0.7"/>
-                            <polygon points="250,450 500,200 750,450" fill="#1a202c" opacity="0.8"/>
-                            
-                            <!-- Central High-res Mountain Target Peak -->
-                            <polygon points="150,450 400,120 650,450" fill="#111c24" />
-                            
-                            <!-- Snow cap on main mountain -->
-                            <polygon points="350,187 400,120 450,187" fill="#edf2f7" />
-                            
-                            <!-- Zoom target: A Golden Eagle resting on a flagpole at the peak (center of coordinate system) -->
-                            <!-- Let's group it so we can keep it sharp and detailed -->
-                            <g transform="translate(400, 185) scale(0.06)" id="zoom-target-detail">
-                                <!-- Flag Pole -->
-                                <line x1="0" y1="-300" x2="0" y2="0" stroke="#a0aec0" stroke-width="8" />
-                                <!-- Flag (Red) -->
-                                <polygon points="0,-300 180,-250 0,-200" fill="#e53e3e" />
-                                <!-- Golden Eagle perched on pole -->
-                                <path d="M -20,-340 C -30,-370 -10,-400 10,-400 C 30,-400 40,-370 30,-340 C 25,-320 15,-310 0,-310 C -15,-310 -25,-320 -20,-340 Z" fill="#dd6b20" />
-                                <path d="M 0,-400 Q 15,-420 30,-410 Q 20,-390 10,-400" fill="#ecc94b" /> <!-- beak -->
-                                <!-- Wings folded -->
-                                <path d="M -35,-335 C -60,-320 -50,-260 -20,-280 C -30,-290 -35,-310 -35,-335 Z" fill="#7b341e" />
-                                <path d="M 35,-335 C 60,-320 50,-260 20,-280 C 30,-290 35,-310 35,-335 Z" fill="#7b341e" />
-                                <!-- Eagle eye -->
-                                <circle cx="5" cy="-380" r="3" fill="#fff" />
-                                <circle cx="5" cy="-380" r="1.5" fill="#000" />
-                            </g>
-
-                            <!-- Foreground trees and hills -->
-                            <polygon points="-50,450 150,330 350,450" fill="#1b2e22" />
-                            <polygon points="450,450 650,340 850,450" fill="#0f1f14" />
-                            
-                            <!-- SVG Definitions -->
-                            <defs>
-                                <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="#4299e1"/>
-                                    <stop offset="60%" stop-color="#90cdf4"/>
-                                    <stop offset="100%" stop-color="#ebf8ff"/>
-                                </linearGradient>
-                                <radialGradient id="sunGradient">
-                                    <stop offset="0%" stop-color="#fff" />
-                                    <stop offset="20%" stop-color="#fff" stop-opacity="0.9" />
-                                    <stop offset="100%" stop-color="#ecc94b" stop-opacity="0" />
-                                </radialGradient>
-                            </defs>
-                        </svg>
-                    </div>
-
-                    <!-- Overlay showing active frame boundary -->
-                    <div style="position: absolute; top:0; left:0; width:100%; height:100%; border:1px solid rgba(255,255,255,0.05); pointer-events:none;"></div>
-                </div>
-
-                <!-- Slider and controls -->
-                <div style="width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 15px; align-items: center;">
-                    <input type="range" id="zoom-slider" class="apple-slider" min="0.5" max="120" step="0.1" value="1" oninput="updateZoom(this.value)">
-                    
-                    <div style="display: flex; justify-content: space-between; width: 100%; padding: 0 10px; font-size: 11px; color: var(--text-dark-secondary);">
-                        <span>0.5x (UltraWide)</span>
-                        <span>1x (Main)</span>
-                        <span>3x (Telephoto)</span>
-                        <span>6x (Periscope)</span>
-                        <span>120x (Digital Max)</span>
-                    </div>
-
-                    <div class="camera-zoom-overlay">
-                        <button class="zoom-preset-btn" id="zoom-pre-05" onclick="setZoomPreset(0.5)">0.5x</button>
-                        <button class="zoom-preset-btn active" id="zoom-pre-1" onclick="setZoomPreset(1)">1x</button>
-                        <button class="zoom-preset-btn" id="zoom-pre-3" onclick="setZoomPreset(3)">3x</button>
-                        <button class="zoom-preset-btn" id="zoom-pre-6" onclick="setZoomPreset(6)">6x</button>
-                        <button class="zoom-preset-btn" id="zoom-pre-120" onclick="setZoomPreset(120)">120x</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Performance Chip Simulator -->
-        <section class="section reveal-on-scroll">
-            <h3 style="font-size: 28px; text-align: center; margin-bottom: 20px;">Desktop-Class Silicon</h3>
-            <p style="color: var(--text-dark-secondary); text-align: center; max-width: 600px; margin: 0 auto 30px;">
-                Compare the transistor architecture and bandwidth capability between the Snapdragon 8 Gen 4 Elite (Flagship) and Snapdragon 7 Gen 3 (Budget).
-            </p>
-
-            <div class="chip-visualizer">
-                <div class="chip-column-graphic">
-                    <div class="chip-silicon" id="chip-graphic">
-                        <div class="chip-traces">
-                            <div class="chip-trace-line" style="top: 20%;"></div>
-                            <div class="chip-trace-line" style="top: 50%;"></div>
-                            <div class="chip-trace-line" style="top: 80%;"></div>
-                            <div class="chip-trace-line vertical" style="left: 20%;"></div>
-                            <div class="chip-trace-line vertical" style="left: 50%;"></div>
-                            <div class="chip-trace-line vertical" style="left: 80%;"></div>
-                        </div>
-                        <div class="chip-label-top" id="chip-top-text">Flagship Chip</div>
-                        <div class="chip-label-main" id="chip-name-text">8 Gen 4</div>
-                        <div class="chip-label-details" id="chip-details-text">3nm / Snapdragon Elite</div>
-                    </div>
-                </div>
-
-                <div class="chip-column-info">
-                    <h4 style="font-size: 22px; margin-bottom: 15px;" id="chip-summary-title">Snapdragon 8 Gen 4 Elite</h4>
-                    <p style="color: var(--text-dark-secondary); font-size: 15px; line-height: 1.5;" id="chip-summary-desc">
-                        Engineered on a state-of-the-art 3nm/4nm process. Packed with up to 24GB LPDDR5X RAM and UFS 4.1 storage. The absolute peak of mobile computing, offering console-equivalent graphic render speeds and instant on-device AI capabilities.
-                    </p>
-
-                    <div class="stat-bars-container">
-                        <div class="stat-row">
-                            <div class="stat-labels">
-                                <span>CPU Compute Power</span>
-                                <span id="stat-val-cpu">100%</span>
-                            </div>
-                            <div class="stat-bar-track">
-                                <div class="stat-bar-fill" id="stat-fill-cpu" style="width: 100%;"></div>
-                            </div>
-                        </div>
-                        <div class="stat-row">
-                            <div class="stat-labels">
-                                <span>Memory Read/Write Bandwidth</span>
-                                <span id="stat-val-mem">8.5 Gbps (UFS 4.1)</span>
-                            </div>
-                            <div class="stat-bar-track">
-                                <div class="stat-bar-fill" id="stat-fill-mem" style="width: 100%;"></div>
-                            </div>
-                        </div>
-                        <div class="stat-row">
-                            <div class="stat-labels">
-                                <span>Energy Efficiency Score</span>
-                                <span id="stat-val-eff">96/100</span>
-                            </div>
-                            <div class="stat-bar-track">
-                                <div class="stat-bar-fill" id="stat-fill-eff" style="width: 96%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Specs Comparison Section -->
         <section class="section reveal-on-scroll" id="compare">
@@ -336,245 +123,242 @@
                 <p class="section-desc">Analyze the direct spec-for-spec breakdown between Flagship and Budget configurations.</p>
             </div>
 
-            <table class="compare-container">
-                <thead>
-                    <tr class="compare-row compare-row-header">
-                        <div>Feature</div>
-                        <div class="compare-col-title">SuperPhone 1 (Flagship)</div>
-                        <div class="compare-col-title">SuperPhone 1a (Budget)</div>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Display specs -->
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
-                            Display Size & Type
-                        </div>
-                        <div class="compare-col-flagship">6.78” LTPO AMOLED</div>
-                        <div class="compare-col-budget">6.5” AMOLED</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            Resolution & Density
-                        </div>
-                        <div class="compare-col-flagship">3200 × 1440 (QHD+)</div>
-                        <div class="compare-col-budget">1080 × 2400 (FHD+)</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-                            Refresh Rate
-                        </div>
-                        <div class="compare-col-flagship">1–144Hz Adaptive (LTPO)</div>
-                        <div class="compare-col-budget">120Hz Static</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-                            Peak Brightness
-                        </div>
-                        <div class="compare-col-flagship">3,000 nits</div>
-                        <div class="compare-col-budget">1,300 nits</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M12 8v8M8 12h8"/></svg>
-                            Screen Protection
-                        </div>
-                        <div class="compare-col-flagship">Ceramic Shield Glass</div>
-                        <div class="compare-col-budget">Gorilla Glass 5</div>
-                    </tr>
+            <div class="compare-container">
+                <div class="compare-row compare-row-header">
+                    <div>Feature</div>
+                    <div class="compare-col-title">SuperPhone 1 (Flagship)</div>
+                    <div class="compare-col-title">SuperPhone 1a (Budget)</div>
+                </div>
 
-                    <!-- Performance specs -->
-                    <tr class="compare-row-header">
-                        <div>Performance</div>
-                        <div></div>
-                        <div></div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>
-                            Processor Chipset
-                        </div>
-                        <div class="compare-col-flagship">Snapdragon 8 Gen 4 Elite</div>
-                        <div class="compare-col-budget">Snapdragon 7 Gen 3</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                            Silicon Process node
-                        </div>
-                        <div class="compare-col-flagship">3nm or 4nm process</div>
-                        <div class="compare-col-budget">4nm process</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12h12M6 7h12M6 17h12"/></svg>
-                            RAM Capacities
-                        </div>
-                        <div class="compare-col-flagship">12GB / 16GB / 24GB LPDDR5X</div>
-                        <div class="compare-col-budget">8GB LPDDR5 (Base)</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                            Storage Options
-                        </div>
-                        <div class="compare-col-flagship">256GB / 512GB / 1TB UFS 4.1</div>
-                        <div class="compare-col-budget">128GB / 256GB UFS 3.1</div>
-                    </tr>
+                <!-- Display specs -->
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                        Display Size & Type
+                    </div>
+                    <div class="compare-col-flagship">6.78” LTPO AMOLED</div>
+                    <div class="compare-col-budget">6.5” AMOLED</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        Resolution & Density
+                    </div>
+                    <div class="compare-col-flagship">3200 × 1440 (QHD+)</div>
+                    <div class="compare-col-budget">1080 × 2400 (FHD+)</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                        Refresh Rate
+                    </div>
+                    <div class="compare-col-flagship">1–144Hz Adaptive (LTPO)</div>
+                    <div class="compare-col-budget">120Hz Static</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                        Peak Brightness
+                    </div>
+                    <div class="compare-col-flagship">3,000 nits</div>
+                    <div class="compare-col-budget">1,300 nits</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M12 8v8M8 12h8"/></svg>
+                        Screen Protection
+                    </div>
+                    <div class="compare-col-flagship">Ceramic Shield Glass</div>
+                    <div class="compare-col-budget">Gorilla Glass 5</div>
+                </div>
 
-                    <!-- Cameras -->
-                    <tr class="compare-row-header">
-                        <div>Camera System</div>
-                        <div></div>
-                        <div></div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-                            Main Sensor
-                        </div>
-                        <div class="compare-col-flagship">50MP, 1" sensor, f/1.6, Sensor-shift OIS</div>
-                        <div class="compare-col-budget">50MP, f/1.8, Standard OIS</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
-                            Ultrawide Lens
-                        </div>
-                        <div class="compare-col-flagship">50MP, 120° FoV, Macro (2cm)</div>
-                        <div class="compare-col-budget">12MP, 120° FoV</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg>
-                            Telephoto Lens
-                        </div>
-                        <div class="compare-col-flagship">50MP, 3x optical, OIS</div>
-                        <div class="compare-col-budget">10MP, 2x or 3x optical, OIS</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                            Periscope Telephoto
-                        </div>
-                        <div class="compare-col-flagship">64MP, 6x/10x optical, 120x digital max</div>
-                        <div class="compare-col-budget">Not Available</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20"/><circle cx="12" cy="12" r="8"/></svg>
-                            LiDAR Scanner
-                        </div>
-                        <div class="compare-col-flagship">Yes (3D AR, night focus)</div>
-                        <div class="compare-col-budget">Not Available</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="8"/><path d="M12 2v8"/><path d="M17 10A5 5 0 0 0 7 10"/></svg>
-                            Front Selfie Camera
-                        </div>
-                        <div class="compare-col-flagship">32MP Autofocus, 4K60 video</div>
-                        <div class="compare-col-budget">16MP, 1080p video</div>
-                    </tr>
+                <!-- Performance specs -->
+                <div class="compare-row compare-row-header">
+                    <div>Performance</div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>
+                        Processor Chipset
+                    </div>
+                    <div class="compare-col-flagship">Snapdragon 8 Gen 4 Elite</div>
+                    <div class="compare-col-budget">Snapdragon 7 Gen 3</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        Silicon Process node
+                    </div>
+                    <div class="compare-col-flagship">3nm or 4nm process</div>
+                    <div class="compare-col-budget">4nm process</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12h12M6 7h12M6 17h12"/></svg>
+                        RAM Capacities
+                    </div>
+                    <div class="compare-col-flagship">12GB / 16GB / 24GB LPDDR5X</div>
+                    <div class="compare-col-budget">8GB LPDDR5 (Base)</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                        Storage Options
+                    </div>
+                    <div class="compare-col-flagship">256GB / 512GB / 1TB UFS 4.1</div>
+                    <div class="compare-col-budget">128GB / 256GB UFS 3.1</div>
+                </div>
 
-                    <!-- Power -->
-                    <tr class="compare-row-header">
-                        <div>Battery & Charging</div>
-                        <div></div>
-                        <div></div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="10" x="2" y="7" rx="2" ry="2"/><line x1="22" x2="22" y1="11" y2="13"/></svg>
-                            Battery Capacity
-                        </div>
-                        <div class="compare-col-flagship">5,500–6,000mAh</div>
-                        <div class="compare-col-budget">5,000mAh</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 10h9L9 22l2-10H2Z"/></svg>
-                            Wired Charging Speed
-                        </div>
-                        <div class="compare-col-flagship">120W Super Charge</div>
-                        <div class="compare-col-budget">68W Fast Charge</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                            Wireless Charging
-                        </div>
-                        <div class="compare-col-flagship">50W + Reverse Wireless</div>
-                        <div class="compare-col-budget">Not Supported</div>
-                    </tr>
+                <!-- Cameras -->
+                <div class="compare-row compare-row-header">
+                    <div>Camera System</div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                        Main Sensor
+                    </div>
+                    <div class="compare-col-flagship">50MP, 1" sensor, f/1.6, Sensor-shift OIS</div>
+                    <div class="compare-col-budget">50MP, f/1.8, Standard OIS</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+                        Ultrawide Lens
+                    </div>
+                    <div class="compare-col-flagship">50MP, 120° FoV, Macro (2cm)</div>
+                    <div class="compare-col-budget">12MP, 120° FoV</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg>
+                        Telephoto Lens
+                    </div>
+                    <div class="compare-col-flagship">50MP, 3x optical, OIS</div>
+                    <div class="compare-col-budget">10MP, 2x or 3x optical, OIS</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        Periscope Telephoto
+                    </div>
+                    <div class="compare-col-flagship">64MP, 6x/10x optical, 120x digital max</div>
+                    <div class="compare-col-budget">Not Available</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20"/><circle cx="12" cy="12" r="8"/></svg>
+                        LiDAR Scanner
+                    </div>
+                    <div class="compare-col-flagship">Yes (3D AR, night focus)</div>
+                    <div class="compare-col-budget">Not Available</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="8"/><path d="M12 2v8"/><path d="M17 10A5 5 0 0 0 7 10"/></svg>
+                        Front Selfie Camera
+                    </div>
+                    <div class="compare-col-flagship">32MP Autofocus, 4K60 video</div>
+                    <div class="compare-col-budget">16MP, 1080p video</div>
+                </div>
 
-                    <!-- Build & Hardware -->
-                    <tr class="compare-row-header">
-                        <div>Build & Security</div>
-                        <div></div>
-                        <div></div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                            Frame & Chassis
-                        </div>
-                        <div class="compare-col-flagship">Grade 5 Titanium frame</div>
-                        <div class="compare-col-budget">Aluminum frame</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            Back Panel material
-                        </div>
-                        <div class="compare-col-flagship">Matte textured glass</div>
-                        <div class="compare-col-budget">Matte polycarbonate</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                            IP Waterproof Rating
-                        </div>
-                        <div class="compare-col-flagship">IP68 & IP69 (Dust & Deep Immersion)</div>
-                        <div class="compare-col-budget">IP54 (Splash resistant)</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg>
-                            Biometrics Unlock
-                        </div>
-                        <div class="compare-col-flagship">Under-display Ultrasonic + Face IR Unlock</div>
-                        <div class="compare-col-budget">Optical in-display fingerprint</div>
-                    </tr>
+                <!-- Power -->
+                <div class="compare-row compare-row-header">
+                    <div>Battery & Charging</div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="10" x="2" y="7" rx="2" ry="2"/><line x1="22" x2="22" y1="11" y2="13"/></svg>
+                        Battery Capacity
+                    </div>
+                    <div class="compare-col-flagship">5,500–6,000mAh</div>
+                    <div class="compare-col-budget">5,000mAh</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 10h9L9 22l2-10H2Z"/></svg>
+                        Wired Charging Speed
+                    </div>
+                    <div class="compare-col-flagship">120W Super Charge</div>
+                    <div class="compare-col-budget">68W Fast Charge</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Wireless Charging
+                    </div>
+                    <div class="compare-col-flagship">50W + Reverse Wireless</div>
+                    <div class="compare-col-budget">Not Supported</div>
+                </div>
 
-                    <!-- Software & Life -->
-                    <tr class="compare-row-header">
-                        <div>Software & Lifespan</div>
-                        <div></div>
-                        <div></div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                            Operating System
-                        </div>
-                        <div class="compare-col-flagship">SuperOS 4 (with On-device AI assistant)</div>
-                        <div class="compare-col-budget">SuperOS 4</div>
-                    </tr>
-                    <tr class="compare-row">
-                        <div class="compare-col-label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zm0-16v10m-4-4h8"/></svg>
-                            Software Support life
-                        </div>
-                        <div class="compare-col-flagship">7 Years of Full OS Upgrades</div>
-                        <div class="compare-col-budget">3 Years OS upgrades / 4 Years Security</div>
-                    </tr>
-                </tbody>
-            </table>
+                <!-- Build & Hardware -->
+                <div class="compare-row compare-row-header">
+                    <div>Build & Security</div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Frame & Chassis
+                    </div>
+                    <div class="compare-col-flagship">Grade 5 Titanium frame</div>
+                    <div class="compare-col-budget">Aluminum frame</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        Back Panel material
+                    </div>
+                    <div class="compare-col-flagship">Matte textured glass</div>
+                    <div class="compare-col-budget">Matte polycarbonate</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        IP Waterproof Rating
+                    </div>
+                    <div class="compare-col-flagship">IP68 & IP69 (Dust & Deep Immersion)</div>
+                    <div class="compare-col-budget">IP54 (Splash resistant)</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg>
+                        Biometrics Unlock
+                    </div>
+                    <div class="compare-col-flagship">Under-display Ultrasonic + Face IR Unlock</div>
+                    <div class="compare-col-budget">Optical in-display fingerprint</div>
+                </div>
+
+                <!-- Software & Life -->
+                <div class="compare-row compare-row-header">
+                    <div>Software & Lifespan</div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        Operating System
+                    </div>
+                    <div class="compare-col-flagship">SuperOS 4 (with On-device AI assistant)</div>
+                    <div class="compare-col-budget">SuperOS 4</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-col-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zm0-16v10m-4-4h8"/></svg>
+                        Software Support life
+                    </div>
+                    <div class="compare-col-flagship">7 Years of Full OS Upgrades</div>
+                    <div class="compare-col-budget">3 Years OS upgrades / 4 Years Security</div>
+                </div>
+            </div>
         </section>
 
         <!-- CTA Showcase bottom links -->
@@ -645,9 +429,6 @@
                 observer.observe(item);
             });
             
-            // Initialize display & chip stats
-            updateBrightness(1000);
-            updateRefresh(144);
             switchModelShowcase('flagship');
         });
 
@@ -668,181 +449,6 @@
                 btnBudget.classList.add('active');
                 gridFlagship.style.display = 'none';
                 gridBudget.style.display = 'grid';
-            }
-        }
-
-        // Display Simulator functions
-        function updateBrightness(val) {
-            document.getElementById('brightness-val').innerText = val;
-            const overlay = document.getElementById('screen-overlay');
-            const glowRing = document.getElementById('sim-glow-ring');
-            
-            // Map brightness value to overlay opacity
-            // Max nits 3000 -> max overlay brightness (white screen with mix-blend-mode: overlay)
-            const opacity = (val - 100) / 2900 * 0.45;
-            overlay.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
-            
-            // Adjust glow ring size and opacity based on brightness
-            const glowOpacity = (val - 100) / 2900 * 0.4;
-            const glowSize = 350 + (val - 100) / 2900 * 150;
-            glowRing.style.opacity = glowOpacity;
-            glowRing.style.width = `${glowSize}px`;
-            glowRing.style.height = `${glowSize}px`;
-        }
-
-        let refreshInterval = null;
-        let refreshDotX = 0;
-        let refreshDirection = 1;
-        
-        function updateRefresh(hz) {
-            document.getElementById('refresh-val').innerText = hz;
-            
-            // Clear current active button state
-            document.querySelectorAll('.refresh-opt').forEach(opt => opt.classList.remove('active'));
-            
-            if(hz === 1) document.getElementById('ref-1').classList.add('active');
-            if(hz === 60) document.getElementById('ref-60').classList.add('active');
-            if(hz === 120) document.getElementById('ref-120').classList.add('active');
-            if(hz === 144) document.getElementById('ref-144').classList.add('active');
-
-            // Adjust physics/frame timing for the animation dot
-            const dot = document.getElementById('refresh-dot');
-            clearInterval(refreshInterval);
-
-            // Let's model a bounce animation running at different refresh rates
-            // We update positions at intervals to simulate framerates
-            const frameDelay = 1000 / hz;
-            
-            // We want speed to be constant. 
-            // In 1 second, the dot should travel full distance back and forth.
-            // Width of screen container is 320px minus borders (approx 296px). Dot is 14px wide. Travel is 280px.
-            const totalTravel = 180; 
-            const speedPerSecond = 360; // 360px per second
-            const stepSize = speedPerSecond / hz;
-
-            refreshInterval = setInterval(() => {
-                refreshDotX += stepSize * refreshDirection;
-                if(refreshDotX >= totalTravel) {
-                    refreshDotX = totalTravel;
-                    refreshDirection = -1;
-                } else if(refreshDotX <= -totalTravel) {
-                    refreshDotX = -totalTravel;
-                    refreshDirection = 1;
-                }
-                dot.style.transform = `translate(calc(-50% + ${refreshDotX}px), -50%)`;
-            }, frameDelay);
-        }
-
-        // Camera Zoom Simulator functions
-        const cameraSpecs = {
-            0.5: { name: 'Ultrawide Camera', specs: '50MP, 120° Field of View, f/2.2, Macro Support (2cm)', scale: 0.5, origin: '50% 50%' },
-            1: { name: 'Main Camera', specs: '50MP, 1-inch Sony Sensor, f/1.6, Sensor-shift OIS, 8K60', scale: 1, origin: '50% 50%' },
-            3: { name: 'Telephoto Lens', specs: '50MP, 3x Optical Zoom, f/2.4, OIS, Portrait Engine', scale: 3, origin: '50% 41%' },
-            6: { name: 'Periscope Telephoto', specs: '64MP, 6x Optical Zoom, f/3.0, Advanced EIS/OIS', scale: 6, origin: '50% 41%' },
-            120: { name: 'Super Resolution Digital Crop', specs: '120x Digital Zoom, AI Detail Stabilization', scale: 120, origin: '50% 41%' }
-        };
-
-        function updateZoom(val) {
-            document.getElementById('zoom-slider').value = val;
-            
-            // Determine active sensor details based on value thresholds
-            let selectedPreset = 1;
-            if(val < 1.0) selectedPreset = 0.5;
-            else if(val >= 1.0 && val < 3.0) selectedPreset = 1;
-            else if(val >= 3.0 && val < 6.0) selectedPreset = 3;
-            else if(val >= 6.0 && val < 40.0) selectedPreset = 6;
-            else selectedPreset = 120;
-
-            const spec = cameraSpecs[selectedPreset];
-            document.getElementById('zoom-sensor-name').innerText = spec.name;
-            document.getElementById('zoom-sensor-specs').innerText = `${spec.specs} (Active: ${val}x)`;
-
-            // Highlight preset buttons
-            document.querySelectorAll('.zoom-preset-btn').forEach(btn => btn.classList.remove('active'));
-            if(val == 0.5) document.getElementById('zoom-pre-05').classList.add('active');
-            if(val == 1) document.getElementById('zoom-pre-1').classList.add('active');
-            if(val == 3) document.getElementById('zoom-pre-3').classList.add('active');
-            if(val == 6) document.getElementById('zoom-pre-6').classList.add('active');
-            if(val == 120) document.getElementById('zoom-pre-120').classList.add('active');
-
-            // Apply scale/zoom transformation to vector scene
-            const scene = document.getElementById('camera-scene');
-            
-            // Calculate interpolation for origin so transitioning feels natural
-            // We want to zoom into the summit target: 50% 41%
-            let originX = '50%';
-            let originY = '50%';
-            if(val > 1.0) {
-                // interpolate origin Y from 50% to 41%
-                const factor = Math.min((val - 1) / 5, 1.0);
-                originY = (50 - factor * 9) + '%';
-            }
-
-            scene.style.transformOrigin = `${originX} ${originY}`;
-            scene.style.transform = `scale(${val})`;
-
-            // Modify active chip details in parallel based on what's toggled
-            updateActiveChipStats(val);
-        }
-
-        function setZoomPreset(val) {
-            updateZoom(val);
-        }
-
-        // Dynamically link zoom presets to update Chip statistics or change active chip visualizer!
-        function updateActiveChipStats(zoomVal) {
-            const chipName = document.getElementById('chip-name-text');
-            const chipTop = document.getElementById('chip-top-text');
-            const chipDetails = document.getElementById('chip-details-text');
-            const chipTitle = document.getElementById('chip-summary-title');
-            const chipDesc = document.getElementById('chip-summary-desc');
-            
-            const fillCpu = document.getElementById('stat-fill-cpu');
-            const fillMem = document.getElementById('stat-fill-mem');
-            const fillEff = document.getElementById('stat-fill-eff');
-            
-            const valCpu = document.getElementById('stat-val-cpu');
-            const valMem = document.getElementById('stat-val-mem');
-            const valEff = document.getElementById('stat-val-eff');
-
-            const isFlagship = zoomVal > 5.0; // Automatically switch chip stats as user interacts with high-tech zooms!
-            
-            if (isFlagship) {
-                chipName.innerText = "8 Gen 4";
-                chipTop.innerText = "Flagship Chip";
-                chipDetails.innerText = "3nm / Snapdragon Elite";
-                chipTitle.innerText = "Snapdragon 8 Gen 4 Elite";
-                chipDesc.innerText = "Engineered on a state-of-the-art 3nm/4nm process. Packed with up to 24GB LPDDR5X RAM and UFS 4.1 storage. The absolute peak of mobile computing, offering console-equivalent graphic render speeds and instant on-device AI capabilities.";
-                
-                fillCpu.style.width = "100%";
-                fillCpu.classList.remove('budget-color');
-                valCpu.innerText = "100% (Industry Leader)";
-                
-                fillMem.style.width = "100%";
-                fillMem.classList.remove('budget-color');
-                valMem.innerText = "8.5 Gbps (UFS 4.1)";
-                
-                fillEff.style.width = "96%";
-                fillEff.classList.remove('budget-color');
-                valEff.innerText = "96/100";
-            } else {
-                chipName.innerText = "7 Gen 3";
-                chipTop.innerText = "Budget Chip";
-                chipDetails.innerText = "4nm / Snapdragon";
-                chipTitle.innerText = "Snapdragon 7 Gen 3";
-                chipDesc.innerText = "Crafted on a solid 4nm node. Harnesses LPDDR5 RAM and snappy UFS 3.1 storage. Tailored to achieve incredible daily speed, fluid 120Hz system frame rates, and massive battery efficiency for casual use.";
-                
-                fillCpu.style.width = "62%";
-                fillCpu.classList.add('budget-color');
-                valCpu.innerText = "62% (Balanced)";
-                
-                fillMem.style.width = "48%";
-                fillMem.classList.add('budget-color');
-                valMem.innerText = "4.2 Gbps (UFS 3.1)";
-                
-                fillEff.style.width = "84%";
-                fillEff.classList.add('budget-color');
-                valEff.innerText = "84/100";
             }
         }
     </script>
