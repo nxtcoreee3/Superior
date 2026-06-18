@@ -1,456 +1,1385 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Superior - Next-Generation Smartphones</title>
-    <meta name="description" content="Experience the ultimate smartphone lineup: SuperPhone 1 with Snapdragon 8 Gen 4 Elite and 120x zoom, and SuperPhone 1a. Premium design, unmatched performance.">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Superior — The SuperPhone 1 & 1a</title>
+<meta name="description" content="Two phones. Two philosophies. Choose yours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   TOKENS
+   ============================================ */
+:root {
+  --bg: #f7f5f0;
+  --bg-1: #efece4;
+  --bg-2: #e6e2d6;
+  --paper: #fbfaf6;
+  --fg: #1a1814;
+  --fg-mute: #6b6657;
+  --fg-dim: #a8a294;
+  --line: rgba(26, 24, 20, 0.1);
+  --line-strong: rgba(26, 24, 20, 0.2);
+  --accent: #ff3d00;
+  --accent-2: #ff7a00;
+  --accent-3: #d4ff00;
+  --ink: #1a1814;
+  --font-display: 'Fraunces', serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.65, 0.05, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --container: 1400px;
+  --grain: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+[data-theme="dark"] {
+  --bg: #0a0a0c;
+  --bg-1: #111114;
+  --bg-2: #18181c;
+  --paper: #0e0e10;
+  --fg: #f5f3ee;
+  --fg-mute: #a8a39a;
+  --fg-dim: #6b6760;
+  --line: rgba(245, 243, 238, 0.1);
+  --line-strong: rgba(245, 243, 238, 0.2);
+  --accent: #ff5722;
+  --accent-2: #ffab00;
+  --accent-3: #d4ff00;
+  --ink: #f5f3ee;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.5;
+  overflow-x: hidden;
+  transition: background 0.6s var(--ease), color 0.6s var(--ease);
+  position: relative;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: var(--grain);
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: multiply;
+}
+[data-theme="dark"] body::before { mix-blend-mode: screen; }
+img, video { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+::selection { background: var(--accent); color: var(--bg); }
+
+.container { max-width: var(--container); margin: 0 auto; padding: 0 2rem; }
+@media (max-width: 768px) { .container { padding: 0 1.25rem; } }
+
+/* ============================================
+   NAV
+   ============================================ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1.25rem 0;
+  background: color-mix(in srgb, var(--bg) 75%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.nav-logo::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 12px var(--accent);
+}
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.7; } }
+.nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+.nav-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-mute);
+  transition: color 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  position: relative;
+}
+.nav-link:hover { color: var(--fg); }
+.nav-link.active { color: var(--fg); }
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+}
+.nav-actions { display: flex; gap: 0.5rem; align-items: center; }
+.icon-btn {
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--fg);
+  transition: all 0.3s var(--ease);
+}
+.icon-btn:hover { border-color: var(--fg); transform: scale(1.05) rotate(8deg); }
+.icon-btn svg { width: 16px; height: 16px; }
+@media (max-width: 768px) {
+  .nav-inner { padding: 0 1.25rem; }
+  .nav-links { display: none; }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 100px;
+  transition: all 0.4s var(--ease);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: white; }
+.btn-primary:hover { box-shadow: 0 8px 24px rgba(255, 61, 0, 0.4); }
+.btn-ghost { background: transparent; color: var(--fg); }
+.btn-ghost:hover { background: var(--fg); color: var(--bg); }
+.btn-large { padding: 1.125rem 2.25rem; font-size: 14px; }
+.btn svg { width: 14px; height: 14px; transition: transform 0.4s var(--ease); }
+.btn:hover svg { transform: translateX(4px); }
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  padding: 6rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--fg-mute);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: '';
+  flex: 0 0 40px;
+  height: 1px;
+  background: var(--fg-mute);
+}
+.hero-eyebrow::after { flex: 1; max-width: 200px; }
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 13vw, 12rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  margin-bottom: 2.5rem;
+}
+.hero-title .italic { font-style: italic; font-weight: 300; }
+.hero-title .accent {
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 300;
+}
+.hero-title .marker {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0 0.2em 0.05em;
+  display: inline-block;
+  transform: rotate(-1.5deg);
+  font-style: italic;
+  font-weight: 500;
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--line);
+}
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.hero-meta-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--fg-mute);
+}
+.hero-meta-value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.hero-meta-value em { font-style: italic; color: var(--fg-mute); }
+
+/* Hero phone display */
+.hero-phones {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  align-items: end;
+}
+.hero-phone {
+  position: relative;
+  border-radius: 32px;
+  overflow: hidden;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  aspect-ratio: 4/5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s var(--ease);
+}
+.hero-phone.flagship { background: linear-gradient(135deg, #f0ede4 0%, #d8d2c1 100%); }
+.hero-phone.budget { background: linear-gradient(135deg, #1a3050 0%, #0a1830 100%); }
+.hero-phone:hover { transform: translateY(-8px); }
+.hero-phone img {
+  width: 75%;
+  height: auto;
+  filter: drop-shadow(0 30px 50px rgba(0,0,0,0.25));
+  animation: floatPhone 6s ease-in-out infinite;
+}
+.hero-phone.budget img { animation-delay: 3s; }
+@keyframes floatPhone {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.hero-phone-tag {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 0.4rem 0.8rem;
+  background: var(--bg);
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  z-index: 2;
+}
+.hero-phone.budget .hero-phone-tag { background: rgba(255,255,255,0.95); color: #0a1830; }
+.hero-phone-info {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  z-index: 2;
+}
+.hero-phone-name {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+.hero-phone.budget .hero-phone-name { color: white; }
+.hero-phone-price {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-mute);
+}
+.hero-phone.budget .hero-phone-price { color: rgba(255,255,255,0.7); }
+
+.hero-cta {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+@media (max-width: 768px) {
+  .hero { padding: 4rem 0 2rem; }
+  .hero-phones { grid-template-columns: 1fr; }
+  .hero-meta { gap: 1.5rem; }
+}
+
+/* ============================================
+   SECTION COMMONS
+   ============================================ */
+section { position: relative; }
+.section {
+  padding: 6rem 0;
+  border-top: 1px solid var(--line);
+}
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+.section-tag::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--accent);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  max-width: 900px;
+}
+.section-title em { font-style: italic; color: var(--fg-mute); }
+.section-title .accent { color: var(--accent); font-style: italic; }
+.section-desc {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--fg-mute);
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: 4rem;
+}
+@media (max-width: 768px) {
+  .section { padding: 4rem 0; }
+  .section-header { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+}
+
+/* ============================================
+   MARQUEE
+   ============================================ */
+.marquee {
+  padding: 2rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--bg);
+}
+.marquee-track {
+  display: flex;
+  gap: 3rem;
+  animation: marquee 30s linear infinite;
+  width: max-content;
+  align-items: center;
+}
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: italic;
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+}
+.marquee-item .star { color: var(--accent); font-size: 0.8em; }
+.marquee-item .sep { color: var(--accent); }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ============================================
+   PHILOSOPHY
+   ============================================ */
+.philosophy { padding: 8rem 0; }
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.philosophy-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.philosophy-quote em { font-style: italic; color: var(--fg-mute); }
+.philosophy-quote .highlight {
+  background: linear-gradient(180deg, transparent 60%, var(--accent-3) 60%);
+  padding: 0 0.1em;
+}
+.philosophy-quote .ink {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0 0.3em 0.05em;
+  display: inline-block;
+  transform: rotate(-1deg);
+  font-style: italic;
+}
+.philosophy-points {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.philosophy-point {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.philosophy-point-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+  padding-top: 0.25rem;
+}
+.philosophy-point-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--fg-mute);
+}
+.philosophy-point-text strong { color: var(--fg); font-weight: 600; }
+@media (max-width: 768px) { .philosophy-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* ============================================
+   MODEL TOGGLE
+   ============================================ */
+.lineup { padding: 6rem 0; background: var(--bg-1); border-top: 1px solid var(--line); }
+.toggle-tabs {
+  display: inline-flex;
+  padding: 4px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  margin: 0 auto 4rem;
+  position: relative;
+}
+.toggle-tab {
+  position: relative;
+  z-index: 2;
+  padding: 0.75rem 1.75rem;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 100px;
+  transition: color 0.3s;
+  color: var(--fg-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.toggle-tab.active { color: var(--bg); }
+.toggle-tab-bg {
+  position: absolute;
+  top: 4px; bottom: 4px;
+  background: var(--ink);
+  border-radius: 100px;
+  transition: all 0.5s var(--ease-bounce);
+  z-index: 1;
+}
+.toggle-wrap { text-align: center; }
+.model-showcase { display: none; }
+.model-showcase.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+@media (max-width: 768px) { .model-showcase.active { grid-template-columns: 1fr; } }
+
+.feature-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.4s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.feature-card:hover { transform: translateY(-4px); border-color: var(--ink); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+.feature-card:hover::before { transform: scaleX(1); }
+.feature-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-dim);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+.feature-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.feature-desc {
+  color: var(--fg-mute);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.feature-specs {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.feature-spec {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+.feature-spec-label { color: var(--fg-dim); }
+.feature-spec-value { color: var(--fg); font-weight: 600; }
+
+/* ============================================
+   CAMERA SHOWCASE
+   ============================================ */
+.cameras { padding: 8rem 0; }
+.camera-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 4rem;
+}
+.camera-visual {
+  aspect-ratio: 1;
+  background: var(--ink);
+  border-radius: 32px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.camera-rings {
+  position: relative;
+  width: 60%;
+  height: 60%;
+  display: grid;
+  place-items: center;
+}
+.camera-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.camera-ring-1 { width: 100%; height: 100%; animation: spin 30s linear infinite; }
+.camera-ring-2 { width: 75%; height: 75%; animation: spin 25s linear infinite reverse; }
+.camera-ring-3 { width: 50%; height: 50%; animation: spin 20s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.camera-lens {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%; height: 30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent), #5a1500);
+  box-shadow: 0 0 60px var(--accent);
+  display: grid;
+  place-items: center;
+}
+.camera-lens-inner {
+  width: 30%; height: 30%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #2a0a00, #000);
+}
+.camera-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.camera-spec {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+.camera-spec:last-child { border-bottom: none; }
+.camera-spec-num {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+  min-width: 100px;
+}
+.camera-spec-num em { font-style: italic; color: var(--fg-mute); font-size: 0.5em; }
+.camera-spec-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--fg-mute);
+  margin-bottom: 0.5rem;
+}
+.camera-spec-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+.camera-spec-desc {
+  color: var(--fg-mute);
+  font-size: 14px;
+  line-height: 1.6;
+}
+@media (max-width: 768px) { .camera-display { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* ============================================
+   SPECS COMPARE TABLE
+   ============================================ */
+.compare { padding: 6rem 0; background: var(--bg-1); border-top: 1px solid var(--line); }
+.compare-table {
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.compare-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.2s;
+}
+.compare-row:hover { background: color-mix(in srgb, var(--bg) 50%, transparent); }
+.compare-row-header {
+  background: var(--ink);
+  color: var(--bg);
+}
+.compare-row-header:hover { background: var(--ink); }
+.compare-row-header > div {
+  padding: 1.25rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+}
+.compare-col-label {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 14px;
+  color: var(--fg);
+  font-weight: 500;
+}
+.compare-col-label svg { color: var(--fg-mute); flex-shrink: 0; }
+.compare-col-flagship, .compare-col-budget {
+  padding: 1.5rem;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  position: relative;
+}
+.compare-col-flagship { color: var(--accent); font-weight: 600; }
+.compare-col-flagship::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 1rem; bottom: 1rem;
+  width: 2px;
+  background: var(--accent);
+}
+.compare-col-budget { color: var(--fg-mute); }
+@media (max-width: 768px) {
+  .compare-row { grid-template-columns: 1fr 1fr; }
+  .compare-col-label { display: none; }
+  .compare-row > .compare-col-label { display: flex; }
+  .compare-row { grid-template-columns: 1fr 1fr; }
+  .compare-row > .compare-col-label { grid-column: span 2; background: var(--bg-2); }
+}
+
+/* ============================================
+   CTA
+   ============================================ */
+.cta { padding: 8rem 0; position: relative; overflow: hidden; }
+.cta-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 30% 50%, var(--accent), transparent 60%),
+    radial-gradient(ellipse at 70% 50%, var(--accent-2), transparent 60%);
+  opacity: 0.15;
+  filter: blur(80px);
+}
+.cta-inner {
+  position: relative;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 9vw, 8rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  margin-bottom: 2rem;
+}
+.cta-title em { font-style: italic; }
+.cta-title .marker {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0 0.2em 0.05em;
+  display: inline-block;
+  transform: rotate(-2deg);
+  font-style: italic;
+}
+.cta-desc {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--fg-mute);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer { padding: 6rem 0 2rem; border-top: 1px solid var(--line); position: relative; overflow: hidden; }
+.footer-disclaimer {
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 3rem;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--fg-mute);
+}
+.footer-disclaimer strong { color: var(--fg); }
+.footer-marquee {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 12vw, 10rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  animation: marquee 25s linear infinite;
+  width: max-content;
+  margin-bottom: 3rem;
+  color: var(--fg-dim);
+}
+.footer-marquee em { font-style: italic; }
+.footer-marquee .star { color: var(--accent); font-style: normal; }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 0 0;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-mute);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a:hover { color: var(--accent); }
+@media (max-width: 768px) { .footer-bottom { flex-direction: column; text-align: center; } }
+
+/* ============================================
+   SCROLL REVEAL
+   ============================================ */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
+.reveal-stagger.in > *:nth-child(1) { transition-delay: 0s; }
+.reveal-stagger.in > *:nth-child(2) { transition-delay: 0.1s; }
+.reveal-stagger.in > *:nth-child(3) { transition-delay: 0.2s; }
+.reveal-stagger.in > *:nth-child(4) { transition-delay: 0.3s; }
+.reveal-stagger.in > *:nth-child(5) { transition-delay: 0.4s; }
+</style>
 </head>
 <body>
 
-    <!-- Sticky Navigation -->
-    <header class="nav-container">
-        <nav class="nav-content">
-            <a href="index.html" class="nav-logo" id="nav-logo">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.886L4 9l4.912 1.914L10 18l2-6 6-2-6-1.914Z"/></svg>
-                Superior
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Overview</a></li>
-                <li><a href="#spec-showcase">Specs</a></li>
-                <li><a href="#compare">Compare</a></li>
-            </ul>
-            <a href="buy-flagship.html" class="nav-buy-btn">Buy Flagship</a>
-        </nav>
-    </header>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Superior</a>
+    <ul class="nav-links">
+      <li><a href="#lineup" class="nav-link">Lineup</a></li>
+      <li><a href="#cameras" class="nav-link">Cameras</a></li>
+      <li><a href="#compare" class="nav-link">Compare</a></li>
+      <li><a href="#cta" class="nav-link">Buy</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <a href="#cta" class="btn btn-primary">
+        Shop Now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-subtitle">Introducing the Future</div>
-        <h1 class="hero-title">Superior Series</h1>
-        <p class="hero-tagline">Titanium Flagship elegance meets high-value power. Choose the SuperPhone 1 or SuperPhone 1a.</p>
-        <div class="hero-links">
-            <a href="buy-flagship.html" class="btn-primary">Buy SuperPhone 1</a>
-            <a href="buy-budget.html" class="btn-link">Explore SuperPhone 1a</a>
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Spring '26 · Available Worldwide</div>
+    <h1 class="hero-title">
+      Two phones.<br>
+      <span class="italic">One</span> <span class="marker">obsession</span>.<br>
+      <span class="accent">Zero</span> <span class="italic">compromise.</span>
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Display</div>
+        <div class="hero-meta-value">3,000 <em>nits</em></div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Performance</div>
+        <div class="hero-meta-value">Snapdragon <em>8 Gen 4</em></div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Camera</div>
+        <div class="hero-meta-value">120<em>x</em> zoom · 1″ sensor</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Build</div>
+        <div class="hero-meta-value">Titanium · IP69</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Updates</div>
+        <div class="hero-meta-value">7 <em>years</em></div>
+      </div>
+    </div>
+
+    <div class="hero-phones">
+      <div class="hero-phone flagship">
+        <span class="hero-phone-tag">SuperPhone 1 · Flagship</span>
+        <img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&h=750&fit=crop" alt="SuperPhone 1 in titanium white" loading="eager">
+        <div class="hero-phone-info">
+          <div class="hero-phone-name">SuperPhone 1</div>
+          <div class="hero-phone-price">From $999 · Pre-order now</div>
         </div>
-        
-        <div class="hero-devices">
-            <div class="hero-phone flagship">
-                <img src="assets/Hero.png" alt="SuperPhone 1 Flagship White">
-            </div>
-            <div class="hero-phone budget">
-                <img src="assets/SuperPhone 1a Navy Blue.png" alt="SuperPhone 1a Budget Navy Blue">
-            </div>
+      </div>
+      <div class="hero-phone budget">
+        <span class="hero-phone-tag">SuperPhone 1a · Budget</span>
+        <img src="https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=600&h=750&fit=crop" alt="SuperPhone 1a in navy blue" loading="eager">
+        <div class="hero-phone-info">
+          <div class="hero-phone-name">SuperPhone 1a</div>
+          <div class="hero-phone-price">From $499 · Available today</div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- Main Overview Content -->
-    <main>
-        
-        <!-- Model Toggle Showcase -->
-        <section class="section reveal-on-scroll" id="spec-showcase">
-            <div class="section-header">
-                <span class="section-tag">The Lineup</span>
-                <h2 class="section-title">Two ways to experience power.</h2>
-                <p class="section-desc">Toggle between our two ground-breaking models to preview how they redefine their categories.</p>
-            </div>
-            
-            <div style="text-align: center;">
-                <div class="model-tabs">
-                    <button class="model-tab active" onclick="switchModelShowcase('flagship')">SuperPhone 1 (Flagship)</button>
-                    <button class="model-tab" onclick="switchModelShowcase('budget')">SuperPhone 1a (Budget)</button>
-                </div>
-            </div>
+    <div class="hero-cta">
+      <a href="buy-flagship.html" class="btn btn-primary btn-large">
+        Configure Flagship
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="buy-budget.html" class="btn btn-ghost btn-large">Shop the 1a</a>
+    </div>
+  </div>
+</section>
 
-            <!-- Model Info Cards -->
-            <div id="showcase-content-flagship" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
-                <div class="display-sim-container" style="margin: 0; padding: 30px;">
-                    <h3>Flagship Display</h3>
-                    <p style="color: var(--text-dark-secondary); margin: 8px 0 20px;">6.78” QHD+ LTPO AMOLED with 1–144Hz refresh rate, 3,000 nits brightness, and Ceramic Shield.</p>
-                    <div style="width: 100%; border-top: 1px solid var(--border-dark); padding-top: 15px; font-size: 13px;">
-                        <strong>Highlights:</strong> Dolby Vision & HDR10+, adaptive refresh down to 1Hz for extreme power savings.
-                    </div>
-                </div>
-                <div class="display-sim-container" style="margin: 0; padding: 30px;">
-                    <h3>Flagship Performance</h3>
-                    <p style="color: var(--text-dark-secondary); margin: 8px 0 20px;">Snapdragon 8 Gen 4 Elite (3/4nm) with up to 24GB LPDDR5X RAM and 1TB UFS 4.1 storage.</p>
-                    <div style="width: 100%; border-top: 1px solid var(--border-dark); padding-top: 15px; font-size: 13px;">
-                        <strong>Highlights:</strong> Console-grade gaming, 7 years of OS updates, and a dedicated on-device AI assistant.
-                    </div>
-                </div>
-                <div class="display-sim-container" style="margin: 0; padding: 30px;">
-                    <h3>Flagship Cameras</h3>
-                    <p style="color: var(--text-dark-secondary); margin: 8px 0 20px;">50MP 1-inch Main sensor, f/1.6, Sensor-shift OIS, 64MP Periscope (120x zoom), and LiDAR scanning.</p>
-                    <div style="width: 100%; border-top: 1px solid var(--border-dark); padding-top: 15px; font-size: 13px;">
-                        <strong>Highlights:</strong> 8K60 video recording, instant night portraits, and macro photography down to 2cm.
-                    </div>
-                </div>
-            </div>
+<!-- MARQUEE -->
+<section class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="star">✦</span> Titanium</div>
+    <div class="marquee-item"><span class="star">✦</span> 3,000 nits</div>
+    <div class="marquee-item"><span class="star">✦</span> 1-inch sensor</div>
+    <div class="marquee-item"><span class="star">✦</span> 120x zoom</div>
+    <div class="marquee-item"><span class="star">✦</span> 120W charging</div>
+    <div class="marquee-item"><span class="star">✦</span> IP69</div>
+    <div class="marquee-item"><span class="star">✦</span> 7-year support</div>
+    <div class="marquee-item"><span class="star">✦</span> Wi-Fi 7</div>
+    <div class="marquee-item"><span class="star">✦</span> Snapdragon 8 Elite</div>
+    <div class="marquee-item"><span class="star">✦</span> Dolby Vision</div>
+    <div class="marquee-item"><span class="star">✦</span> Titanium</div>
+    <div class="marquee-item"><span class="star">✦</span> 3,000 nits</div>
+    <div class="marquee-item"><span class="star">✦</span> 1-inch sensor</div>
+    <div class="marquee-item"><span class="star">✦</span> 120x zoom</div>
+    <div class="marquee-item"><span class="star">✦</span> 120W charging</div>
+    <div class="marquee-item"><span class="star">✦</span> IP69</div>
+    <div class="marquee-item"><span class="star">✦</span> 7-year support</div>
+    <div class="marquee-item"><span class="star">✦</span> Wi-Fi 7</div>
+    <div class="marquee-item"><span class="star">✦</span> Snapdragon 8 Elite</div>
+    <div class="marquee-item"><span class="star">✦</span> Dolby Vision</div>
+  </div>
+</section>
 
-            <div id="showcase-content-budget" style="display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
-                <div class="display-sim-container" style="margin: 0; padding: 30px;">
-                    <h3>Budget Display</h3>
-                    <p style="color: var(--text-dark-secondary); margin: 8px 0 20px;">6.5” FHD+ AMOLED with 120Hz smooth refresh, 1,300 nits peak brightness, and Gorilla Glass 5.</p>
-                    <div style="width: 100%; border-top: 1px solid var(--border-dark); padding-top: 15px; font-size: 13px;">
-                        <strong>Highlights:</strong> Vibrant, high-contrast colors at an entry-level price point.
-                    </div>
-                </div>
-                <div class="display-sim-container" style="margin: 0; padding: 30px;">
-                    <h3>Budget Performance</h3>
-                    <p style="color: var(--text-dark-secondary); margin: 8px 0 20px;">Snapdragon 7 Gen 3, 8GB RAM, UFS 3.1 storage (up to 256GB). Underpinned by SuperOS 4.</p>
-                    <div style="width: 100%; border-top: 1px solid var(--border-dark); padding-top: 15px; font-size: 13px;">
-                        <strong>Highlights:</strong> Snappy day-to-day multitasking, 3 years OS updates, and 4 years security updates.
-                    </div>
-                </div>
-                <div class="display-sim-container" style="margin: 0; padding: 30px;">
-                    <h3>Budget Cameras</h3>
-                    <p style="color: var(--text-dark-secondary); margin: 8px 0 20px;">50MP Main sensor with f/1.8 & OIS, 12MP Ultrawide (120° FoV), and 10MP Telephoto (3x optical).</p>
-                    <div style="width: 100%; border-top: 1px solid var(--border-dark); padding-top: 15px; font-size: 13px;">
-                        <strong>Highlights:</strong> 4K30 video recording, crisp portraits, and dedicated optical telephoto zooming.
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
-        <!-- Specs Comparison Section -->
-        <section class="section reveal-on-scroll" id="compare">
-            <div class="section-header">
-                <span class="section-tag">Comparison</span>
-                <h2 class="section-title">Compare Superior Models</h2>
-                <p class="section-desc">Analyze the direct spec-for-spec breakdown between Flagship and Budget configurations.</p>
-            </div>
-
-            <div class="compare-container">
-               <div class="compare-row compare-row-header">
-                    <div>Feature</div>
-                    <div class="compare-col-title">SuperPhone 1 (Flagship)</div>
-                    <div class="compare-col-title">SuperPhone 1a (Budget)</div>
-                </div>
-
-                <!-- Display specs -->
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
-                        Display Size & Type
-                    </div>
-                    <div class="compare-col-flagship">6.78” LTPO AMOLED</div>
-                    <div class="compare-col-budget">6.5” AMOLED</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                        Resolution & Density
-                    </div>
-                    <div class="compare-col-flagship">3200 × 1440 (QHD+)</div>
-                    <div class="compare-col-budget">1080 × 2400 (FHD+)</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-                        Refresh Rate
-                    </div>
-                    <div class="compare-col-flagship">1–144Hz Adaptive (LTPO)</div>
-                    <div class="compare-col-budget">120Hz Static</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-                        Peak Brightness
-                    </div>
-                    <div class="compare-col-flagship">3,000 nits</div>
-                    <div class="compare-col-budget">1,300 nits</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M12 8v8M8 12h8"/></svg>
-                        Screen Protection
-                    </div>
-                    <div class="compare-col-flagship">Ceramic Shield Glass</div>
-                    <div class="compare-col-budget">Gorilla Glass 5</div>
-                </div>
-
-                <!-- Performance specs -->
-                <div class="compare-row compare-row-header">
-                    <div>Performance</div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>
-                        Processor Chipset
-                    </div>
-                    <div class="compare-col-flagship">Snapdragon 8 Gen 4 Elite</div>
-                    <div class="compare-col-budget">Snapdragon 7 Gen 3</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                        Silicon Process node
-                    </div>
-                    <div class="compare-col-flagship">3nm or 4nm process</div>
-                    <div class="compare-col-budget">4nm process</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12h12M6 7h12M6 17h12"/></svg>
-                        RAM Capacities
-                    </div>
-                    <div class="compare-col-flagship">12GB / 16GB / 24GB LPDDR5X</div>
-                    <div class="compare-col-budget">8GB LPDDR5 (Base)</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                        Storage Options
-                    </div>
-                    <div class="compare-col-flagship">256GB / 512GB / 1TB UFS 4.1</div>
-                    <div class="compare-col-budget">128GB / 256GB UFS 3.1</div>
-                </div>
-
-                <!-- Cameras -->
-                <div class="compare-row compare-row-header">
-                    <div>Camera System</div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-                        Main Sensor
-                    </div>
-                    <div class="compare-col-flagship">50MP, 1" sensor, f/1.6, Sensor-shift OIS</div>
-                    <div class="compare-col-budget">50MP, f/1.8, Standard OIS</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
-                        Ultrawide Lens
-                    </div>
-                    <div class="compare-col-flagship">50MP, 120° FoV, Macro (2cm)</div>
-                    <div class="compare-col-budget">12MP, 120° FoV</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg>
-                        Telephoto Lens
-                    </div>
-                    <div class="compare-col-flagship">50MP, 3x optical, OIS</div>
-                    <div class="compare-col-budget">10MP, 2x or 3x optical, OIS</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                        Periscope Telephoto
-                    </div>
-                    <div class="compare-col-flagship">64MP, 6x/10x optical, 120x digital max</div>
-                    <div class="compare-col-budget">Not Available</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20"/><circle cx="12" cy="12" r="8"/></svg>
-                        LiDAR Scanner
-                    </div>
-                    <div class="compare-col-flagship">Yes (3D AR, night focus)</div>
-                    <div class="compare-col-budget">Not Available</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="8"/><path d="M12 2v8"/><path d="M17 10A5 5 0 0 0 7 10"/></svg>
-                        Front Selfie Camera
-                    </div>
-                    <div class="compare-col-flagship">32MP Autofocus, 4K60 video</div>
-                    <div class="compare-col-budget">16MP, 1080p video</div>
-                </div>
-
-                <!-- Power -->
-                <div class="compare-row compare-row-header">
-                    <div>Battery & Charging</div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="10" x="2" y="7" rx="2" ry="2"/><line x1="22" x2="22" y1="11" y2="13"/></svg>
-                        Battery Capacity
-                    </div>
-                    <div class="compare-col-flagship">5,500–6,000mAh</div>
-                    <div class="compare-col-budget">5,000mAh</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 10h9L9 22l2-10H2Z"/></svg>
-                        Wired Charging Speed
-                    </div>
-                    <div class="compare-col-flagship">120W Super Charge</div>
-                    <div class="compare-col-budget">68W Fast Charge</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        Wireless Charging
-                    </div>
-                    <div class="compare-col-flagship">50W + Reverse Wireless</div>
-                    <div class="compare-col-budget">Not Supported</div>
-                </div>
-
-                <!-- Build & Hardware -->
-                <div class="compare-row compare-row-header">
-                    <div>Build & Security</div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        Frame & Chassis
-                    </div>
-                    <div class="compare-col-flagship">Grade 5 Titanium frame</div>
-                    <div class="compare-col-budget">Aluminum frame</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                        Back Panel material
-                    </div>
-                    <div class="compare-col-flagship">Matte textured glass</div>
-                    <div class="compare-col-budget">Matte polycarbonate</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        IP Waterproof Rating
-                    </div>
-                    <div class="compare-col-flagship">IP68 & IP69 (Dust & Deep Immersion)</div>
-                    <div class="compare-col-budget">IP54 (Splash resistant)</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg>
-                        Biometrics Unlock
-                    </div>
-                    <div class="compare-col-flagship">Under-display Ultrasonic + Face IR Unlock</div>
-                    <div class="compare-col-budget">Optical in-display fingerprint</div>
-                </div>
-
-                <!-- Software & Life -->
-                <div class="compare-row compare-row-header">
-                    <div>Software & Lifespan</div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                        Operating System
-                    </div>
-                    <div class="compare-col-flagship">SuperOS 4 (with On-device AI assistant)</div>
-                    <div class="compare-col-budget">SuperOS 4</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-col-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zm0-16v10m-4-4h8"/></svg>
-                        Software Support life
-                    </div>
-                    <div class="compare-col-flagship">7 Years of Full OS Upgrades</div>
-                    <div class="compare-col-budget">3 Years OS upgrades / 4 Years Security</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Showcase bottom links -->
-        <section class="section reveal-on-scroll" style="background: radial-gradient(circle at center, #111 0%, #000 100%); border-radius: 40px; margin-bottom: 80px; padding: 80px 40px; text-align: center;">
-            <h2 style="font-size: 42px; font-weight: 700; margin-bottom: 20px;">Ready to find your match?</h2>
-            <p style="color: var(--text-dark-secondary); font-size: 18px; max-width: 600px; margin: 0 auto 40px;">
-                Experience the premium hardware build first-hand. Place your simulation order for either SuperPhone model today.
-            </p>
-            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <div class="display-sim-container" style="margin: 0; padding: 40px 30px; text-align: center; width: 320px; min-height: 380px; justify-content: space-between;">
-                    <div>
-                        <span style="color: #bf4800; font-size: 11px; font-weight: 700; text-transform: uppercase;">Flagship power</span>
-                        <h3 style="font-size: 26px; margin: 10px 0 6px;">SuperPhone 1</h3>
-                        <p style="color: var(--text-dark-secondary); font-size: 14px;">The absolute pinnacle of our smartphone engineering.</p>
-                        <h4 style="font-size: 22px; margin-top: 15px;">From $999</h4>
-                    </div>
-                    <a href="buy-flagship.html" class="btn-primary" style="width: 100%;">Buy Flagship</a>
-                </div>
-
-                <div class="display-sim-container" style="margin: 0; padding: 40px 30px; text-align: center; width: 320px; min-height: 380px; justify-content: space-between;">
-                    <div>
-                        <span style="color: var(--apple-blue); font-size: 11px; font-weight: 700; text-transform: uppercase;">High value</span>
-                        <h3 style="font-size: 26px; margin: 10px 0 6px;">SuperPhone 1a</h3>
-                        <p style="color: var(--text-dark-secondary); font-size: 14px;">Essential features and performance at an entry price.</p>
-                        <h4 style="font-size: 22px; margin-top: 15px;">From $499</h4>
-                    </div>
-                    <a href="buy-budget.html" class="btn-primary" style="width: 100%; background: #333;">Buy Budget</a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-disclaimer">
-                <p><strong>Disclaimer:</strong> This website is a premium interactive portfolio project simulating an Apple-like product announcement and customization experience. "Superior", "SuperPhone 1", "SuperPhone 1a", "SuperOS" and all related specifications are fictional constructs. No actual purchases are conducted, and no money is ever processed.</p>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-                <p>© 2026 Superior Inc. All rights simulated.</p>
-                <ul class="footer-links">
-                    <li><a href="index.html">Overview</a></li>
-                    <li><a href="buy-flagship.html">SuperPhone 1</a></li>
-                    <li><a href="buy-budget.html">SuperPhone 1a</a></li>
-                </ul>
-            </div>
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="container">
+    <div class="philosophy-grid">
+      <div class="reveal">
+        <div class="section-tag">The Idea</div>
+        <h2 class="section-title">We don't do <em>"good enough."</em></h2>
+        <p class="philosophy-quote">
+          Most phones ask you to compromise. <span class="highlight">We don't.</span><br><br>
+          Every gram, every millimeter, every millisecond — engineered so you stop thinking about your phone and start <span class="ink">living through it</span>.
+        </p>
+      </div>
+      <div class="reveal-stagger">
+        <div class="philosophy-points">
+          <div class="philosophy-point">
+            <div class="philosophy-point-num">01</div>
+            <div class="philosophy-point-text"><strong>Performance that disappears.</strong> The 8 Gen 4 Elite is so fast your thumb moves before the app does. We just get out of the way.</div>
+          </div>
+          <div class="philosophy-point">
+            <div class="philosophy-point-num">02</div>
+            <div class="philosophy-point-text"><strong>A camera that replaces a kit.</strong> Four lenses. One-inch sensor. Up to 120x reach. Your socials will thank you.</div>
+          </div>
+          <div class="philosophy-point">
+            <div class="philosophy-point-num">03</div>
+            <div class="philosophy-point-text"><strong>Battery that outlasts you.</strong> 6,000mAh + 120W charging means five minutes on the cable buys you a workday.</div>
+          </div>
+          <div class="philosophy-point">
+            <div class="philosophy-point-num">04</div>
+            <div class="philosophy-point-text"><strong>Software you won't outgrow.</strong> Seven years of OS updates. Your phone will feel new long after the newness wears off.</div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Interactive Scripts -->
-    <script>
-        // Scroll animation triggers
-        document.addEventListener('DOMContentLoaded', () => {
-            const items = document.querySelectorAll('.reveal-on-scroll');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, {
-                threshold: 0.15
-            });
+<!-- LINEUP / TOGGLE -->
+<section class="lineup" id="lineup">
+  <div class="container">
+    <div class="section-header">
+      <div class="reveal">
+        <div class="section-tag">The Lineup</div>
+        <h2 class="section-title">Two ways<br>to go <em>premium.</em></h2>
+      </div>
+      <p class="section-desc reveal">One pushes every boundary. The other hits the essentials without the markup. Toggle to see what you get.</p>
+    </div>
 
-            items.forEach(item => {
-                observer.observe(item);
-            });
-            
-            switchModelShowcase('flagship');
-        });
+    <div class="toggle-wrap">
+      <div class="toggle-tabs" id="toggleTabs">
+        <span class="toggle-tab-bg" id="toggleBg"></span>
+        <button class="toggle-tab active" data-model="flagship">Flagship · 1</button>
+        <button class="toggle-tab" data-model="budget">Budget · 1a</button>
+      </div>
+    </div>
 
-        // Toggle lineup cards between flagship and budget
-        function switchModelShowcase(model) {
-            const btnFlagship = document.querySelector('.model-tabs .model-tab:nth-child(1)');
-            const btnBudget = document.querySelector('.model-tabs .model-tab:nth-child(2)');
-            const gridFlagship = document.getElementById('showcase-content-flagship');
-            const gridBudget = document.getElementById('showcase-content-budget');
-            
-            if (model === 'flagship') {
-                btnFlagship.classList.add('active');
-                btnBudget.classList.remove('active');
-                gridFlagship.style.display = 'grid';
-                gridBudget.style.display = 'none';
-            } else {
-                btnFlagship.classList.remove('active');
-                btnBudget.classList.add('active');
-                gridFlagship.style.display = 'none';
-                gridBudget.style.display = 'grid';
-            }
-        }
-    </script>
+    <div class="model-showcase active" id="showcaseFlagship">
+      <div class="feature-card">
+        <div class="feature-num">DISPLAY · 01</div>
+        <h3 class="feature-title">See <em>everything</em></h3>
+        <p class="feature-desc">6.78" QHD+ LTPO AMOLED. 1–144Hz adaptive refresh. 3,000 nits of peak brightness — readable in direct sunlight.</p>
+        <div class="feature-specs">
+          <div class="feature-spec"><span class="feature-spec-label">Resolution</span><span class="feature-spec-value">3200 × 1440</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">Refresh</span><span class="feature-spec-value">1–144Hz</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">Brightness</span><span class="feature-spec-value">3,000 nits</span></div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">PERFORMANCE · 02</div>
+        <h3 class="feature-title">Snapdragon <em>8 Elite</em></h3>
+        <p class="feature-desc">3nm flagship silicon. Up to 24GB LPDDR5X RAM and 1TB UFS 4.1 storage. Console-class gaming. On-device AI.</p>
+        <div class="feature-specs">
+          <div class="feature-spec"><span class="feature-spec-label">Chip</span><span class="feature-spec-value">8 Gen 4 Elite</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">RAM</span><span class="feature-spec-value">Up to 24GB</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">Storage</span><span class="feature-spec-value">Up to 1TB</span></div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">CAMERA · 03</div>
+        <h3 class="feature-title">Four lenses.<br><em>Zero limits.</em></h3>
+        <p class="feature-desc">50MP 1-inch main. 50MP ultrawide. 50MP 3x telephoto. 64MP periscope with 120x reach. LiDAR for AR and instant night focus.</p>
+        <div class="feature-specs">
+          <div class="feature-spec"><span class="feature-spec-label">Main</span><span class="feature-spec-value">50MP · 1″ · f/1.6</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">Periscope</span><span class="feature-spec-value">64MP · 6–10x</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">Zoom Max</span><span class="feature-spec-value">120x digital</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="model-showcase" id="showcaseBudget">
+      <div class="feature-card">
+        <div class="feature-num">DISPLAY · 01</div>
+        <h3 class="feature-title">Crisp. <em>Bright.</em></h3>
+        <p class="feature-desc">6.5" FHD+ AMOLED. 120Hz smooth refresh. 1,300 nits peak. Vibrant colors and Gorilla Glass 5 protection.</p>
+        <div class="feature-specs">
+          <div class="feature-spec"><span class="feature-spec-label">Resolution</span><span class="feature-spec-value">2400 × 1080</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">Refresh</span><span class="feature-spec-value">120Hz</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">Brightness</span><span class="feature-spec-value">1,300 nits</span></div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">PERFORMANCE · 02</div>
+        <h3 class="feature-title">Snapdragon <em>7 Gen 3</em></h3>
+        <p class="feature-desc">Snappy day-to-day performance. 8GB RAM, up to 256GB UFS 3.1. SuperOS 4 keeps everything fluid for years.</p>
+        <div class="feature-specs">
+          <div class="feature-spec"><span class="feature-spec-label">Chip</span><span class="feature-spec-value">7 Gen 3</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">RAM</span><span class="feature-spec-value">8GB</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">Storage</span><span class="feature-spec-value">Up to 256GB</span></div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">CAMERA · 03</div>
+        <h3 class="feature-title">Triple threat.<br><em>No fluff.</em></h3>
+        <p class="feature-desc">50MP main with OIS. 12MP ultrawide. 10MP telephoto with 3x optical zoom. Crisp 4K30 video. Everything you actually use.</p>
+        <div class="feature-specs">
+          <div class="feature-spec"><span class="feature-spec-label">Main</span><span class="feature-spec-value">50MP · f/1.8</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">Telephoto</span><span class="feature-spec-value">10MP · 3x</span></div>
+          <div class="feature-spec"><span class="feature-spec-label">Video</span><span class="feature-spec-value">4K · 30fps</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMERAS -->
+<section class="cameras" id="cameras">
+  <div class="container">
+    <div class="section-header">
+      <div class="reveal">
+        <div class="section-tag">Optics</div>
+        <h2 class="section-title">A camera system <em>without ceiling.</em></h2>
+      </div>
+      <p class="section-desc reveal">The flagship's quad-lens array combines a 1-inch main sensor with a periscope that reaches 120x. Every shot, every distance, every light.</p>
+    </div>
+
+    <div class="camera-display">
+      <div class="camera-visual reveal">
+        <div class="camera-rings">
+          <div class="camera-ring camera-ring-1"></div>
+          <div class="camera-ring camera-ring-2"></div>
+          <div class="camera-ring camera-ring-3"></div>
+          <div class="camera-lens">
+            <div class="camera-lens-inner"></div>
+          </div>
+        </div>
+      </div>
+      <div class="camera-specs reveal-stagger">
+        <div class="camera-spec">
+          <div class="camera-spec-num">1<em>″</em></div>
+          <div>
+            <div class="camera-spec-label">Main Sensor</div>
+            <div class="camera-spec-title">Massive 1-inch sensor, f/1.6 aperture</div>
+            <div class="camera-spec-desc">Drastically better low-light performance. More detail, more depth, more story per frame.</div>
+          </div>
+        </div>
+        <div class="camera-spec">
+          <div class="camera-spec-num">120<em>x</em></div>
+          <div>
+            <div class="camera-spec-label">Periscope Reach</div>
+            <div class="camera-spec-title">64MP periscope with 6x–10x optical</div>
+            <div class="camera-spec-desc">Get the shot across the field, across the room, or across the city. Stabilized to look like you were right there.</div>
+          </div>
+        </div>
+        <div class="camera-spec">
+          <div class="camera-spec-num">8K<em>60</em></div>
+          <div>
+            <div class="camera-spec-label">Video Recording</div>
+            <div class="camera-spec-title">Cinema-grade capture in your pocket</div>
+            <div class="camera-spec-desc">8K60 with sensor-shift OIS, LiDAR-assisted focusing, and a dedicated night portrait pipeline.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE TABLE -->
+<section class="compare" id="compare">
+  <div class="container">
+    <div class="section-header">
+      <div class="reveal">
+        <div class="section-tag">Comparison</div>
+        <h2 class="section-title">Spec for spec.</h2>
+      </div>
+      <p class="section-desc reveal">A direct breakdown of what each model brings. Orange rows are where the flagship pulls ahead.</p>
+    </div>
+
+    <div class="compare-table reveal">
+      <div class="compare-row compare-row-header">
+        <div>Specification</div>
+        <div>SuperPhone 1 · Flagship</div>
+        <div>SuperPhone 1a · Budget</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Display Size</div>
+        <div class="compare-col-flagship">6.78″ LTPO AMOLED</div>
+        <div class="compare-col-budget">6.5″ AMOLED</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Resolution</div>
+        <div class="compare-col-flagship">3200 × 1440 · QHD+</div>
+        <div class="compare-col-budget">2400 × 1080 · FHD+</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Refresh Rate</div>
+        <div class="compare-col-flagship">1–144Hz Adaptive</div>
+        <div class="compare-col-budget">120Hz Static</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Peak Brightness</div>
+        <div class="compare-col-flagship">3,000 nits</div>
+        <div class="compare-col-budget">1,300 nits</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Glass</div>
+        <div class="compare-col-flagship">Ceramic Shield</div>
+        <div class="compare-col-budget">Gorilla Glass 5</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Chipset</div>
+        <div class="compare-col-flagship">Snapdragon 8 Gen 4 Elite · 3nm</div>
+        <div class="compare-col-budget">Snapdragon 7 Gen 3 · 4nm</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">RAM</div>
+        <div class="compare-col-flagship">12 / 16 / 24GB LPDDR5X</div>
+        <div class="compare-col-budget">8GB LPDDR5</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Storage</div>
+        <div class="compare-col-flagship">256GB / 512GB / 1TB · UFS 4.1</div>
+        <div class="compare-col-budget">128GB / 256GB · UFS 3.1</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Main Camera</div>
+        <div class="compare-col-flagship">50MP · 1″ · f/1.6 · Sensor-shift OIS · 8K60</div>
+        <div class="compare-col-budget">50MP · f/1.8 · OIS · 4K30</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Periscope</div>
+        <div class="compare-col-flagship">64MP · 6–10x optical · 120x max</div>
+        <div class="compare-col-budget">—</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">LiDAR</div>
+        <div class="compare-col-flagship">Yes · 3D AR + night focus</div>
+        <div class="compare-col-budget">—</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Battery</div>
+        <div class="compare-col-flagship">5,500–6,000mAh</div>
+        <div class="compare-col-budget">5,000mAh</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Wired Charging</div>
+        <div class="compare-col-flagship">120W Super Charge</div>
+        <div class="compare-col-budget">68W Fast Charge</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Wireless Charging</div>
+        <div class="compare-col-flagship">50W + Reverse Wireless</div>
+        <div class="compare-col-budget">—</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Frame</div>
+        <div class="compare-col-flagship">Grade 5 Titanium</div>
+        <div class="compare-col-budget">Aluminum</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Water Resistance</div>
+        <div class="compare-col-flagship">IP68 + IP69</div>
+        <div class="compare-col-budget">IP54 (Splash)</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-col-label">Updates</div>
+        <div class="compare-col-flagship">7 years OS + security</div>
+        <div class="compare-col-budget">3 years OS + 4 years security</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="cta-bg"></div>
+  <div class="container">
+    <div class="cta-inner">
+      <div class="section-tag reveal" style="justify-content:center;">Get yours</div>
+      <h2 class="cta-title reveal">
+        Pick your<br>
+        <span class="marker">poison.</span>
+      </h2>
+      <p class="cta-desc reveal">Premium overkill or essential value — both available today, both engineered to feel like a mistake to settle for less.</p>
+      <div class="cta-actions reveal">
+        <a href="buy-flagship.html" class="btn btn-primary btn-large">
+          Buy SuperPhone 1 · $999
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="buy-budget.html" class="btn btn-ghost btn-large">Buy 1a · $499</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-disclaimer">
+      <p><strong>Disclaimer:</strong> "Superior", "SuperPhone 1", "SuperPhone 1a", "SuperOS" and all related specifications are fictional constructs for a portfolio project. No actual purchases are conducted.</p>
+    </div>
+    <div class="footer-marquee">
+      Superior <em>—</em> Superior <span class="star">✦</span> Superior <em>—</em> Superior <span class="star">✦</span> Superior <em>—</em> Superior <span class="star">✦</span>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Superior Inc. · All rights simulated</span>
+      <ul class="footer-links">
+        <li><a href="#lineup">Lineup</a></li>
+        <li><a href="#compare">Specs</a></li>
+        <li><a href="#cta">Buy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================
+   THEME
+   ============================================ */
+const root = document.documentElement;
+let theme = localStorage.getItem('superior-theme') || 'light';
+root.setAttribute('data-theme', theme);
+document.getElementById('themeBtn').addEventListener('click', () => {
+  theme = theme === 'light' ? 'dark' : 'light';
+  root.setAttribute('data-theme', theme);
+  localStorage.setItem('superior-theme', theme);
+});
+
+/* ============================================
+   MODEL TOGGLE
+   ============================================ */
+const tabs = document.querySelectorAll('.toggle-tab');
+const bg = document.getElementById('toggleBg');
+const flagship = document.getElementById('showcaseFlagship');
+const budget = document.getElementById('showcaseBudget');
+
+function moveTab() {
+  const active = document.querySelector('.toggle-tab.active');
+  if (active && bg) {
+    const rect = active.getBoundingClientRect();
+    const parent = active.parentElement.getBoundingClientRect();
+    bg.style.left = (rect.left - parent.left) + 'px';
+    bg.style.width = rect.width + 'px';
+  }
+}
+setTimeout(moveTab, 50);
+addEventListener('resize', moveTab);
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    moveTab();
+    if (tab.dataset.model === 'flagship') {
+      flagship.classList.add('active');
+      budget.classList.remove('active');
+    } else {
+      budget.classList.add('active');
+      flagship.classList.remove('active');
+    }
+  });
+});
+
+/* ============================================
+   SMOOTH SCROLL
+   ============================================ */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href === '#') return;
+    const t = document.querySelector(href);
+    if (t) {
+      e.preventDefault();
+      const top = t.getBoundingClientRect().top + window.scrollY - 60;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+/* ============================================
+   SCROLL REVEAL
+   ============================================ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+
+/* ============================================
+   PARALLAX
+   ============================================ */
+addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle && y < innerHeight) {
+    heroTitle.style.transform = `translateY(${y * 0.2}px)`;
+  }
+}, { passive: true });
+</script>
 </body>
 </html>
